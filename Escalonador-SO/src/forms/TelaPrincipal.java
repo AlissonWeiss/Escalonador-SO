@@ -31,13 +31,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String caminho = null;
         
         JFileChooser arquivo = new JFileChooser();
+        
+             
         FileNameExtensionFilter filtroBIN = new FileNameExtensionFilter("Arquivo BIN", "bin");
         arquivo.setAcceptAllFileFilterUsed(false);
+        arquivo.addChoosableFileFilter(filtroBIN);
         arquivo.setDialogTitle("Selecione o arquivo de processos");
+        
         if(arquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             caminho = arquivo.getSelectedFile().getAbsolutePath();
+            JOptionPane.showMessageDialog(this, "Arquivo aberto com sucesso! \n Caminho: " + caminho);
         }
-        System.out.println(caminho);
+
         return caminho;
     }
     /**
