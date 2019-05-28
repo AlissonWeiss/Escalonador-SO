@@ -6,6 +6,10 @@
 package telaprincipal;
 
 import ajustes.AjustarJanelas;
+import escalonador.processos.ProcessarArquivo;
+import escalonador.processos.Processos;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -20,8 +24,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents(); 
         ajustes.AjustarJanelas tela = new AjustarJanelas();
         tela.ajustarJanelas(this);
+        FuncoesTelaPrincipal func = new FuncoesTelaPrincipal();
+               
+        
     }
-
+    
+    //SETTERS DAS FILAS
+    public static void setFila0(String texto){
+        
+        lbl_fila0.setText(texto);
+        
+    }
+    public static void setFila1(String texto){
+        
+        lbl_fila1.setText(texto);
+        
+    }
+    public static void setFila2(String texto){
+        
+        lbl_fila2.setText(texto);
+        
+    }
+    public static void setFila3(String texto){
+        
+        lbl_fila3.setText(texto);
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,6 +65,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        lbl_fila0 = new javax.swing.JLabel();
+        lbl_fila1 = new javax.swing.JLabel();
+        lbl_fila2 = new javax.swing.JLabel();
+        lbl_fila3 = new javax.swing.JLabel();
+        title_fila0 = new javax.swing.JLabel();
+        title_fila1 = new javax.swing.JLabel();
+        title_fila2 = new javax.swing.JLabel();
+        title_fila3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,40 +83,87 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("PROCESSOS LIDOS:");
 
+        lbl_fila0.setText("Fila 0");
+
+        lbl_fila1.setText("Fila 1");
+
+        lbl_fila2.setText("Fila 2");
+
+        lbl_fila3.setText("Fila 3");
+
+        title_fila0.setText("Fila 0:");
+
+        title_fila1.setText("Fila 1:");
+
+        title_fila2.setText("Fila 2:");
+
+        title_fila3.setText("Fila 3:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel3)
-                .addContainerGap(680, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(title_fila3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_fila3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(title_fila0)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_fila0))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(title_fila1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_fila1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(title_fila2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_fila2)))
+                .addContainerGap(704, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_fila0)
+                    .addComponent(title_fila0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_fila1)
+                    .addComponent(title_fila1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_fila2)
+                    .addComponent(title_fila2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_fila3)
+                    .addComponent(title_fila3))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel1)
+                .addGap(332, 332, 332))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(43, 43, 43))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(43, 43, 43))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,5 +223,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private static javax.swing.JLabel lbl_fila0;
+    private static javax.swing.JLabel lbl_fila1;
+    private static javax.swing.JLabel lbl_fila2;
+    private static javax.swing.JLabel lbl_fila3;
+    private javax.swing.JLabel title_fila0;
+    private javax.swing.JLabel title_fila1;
+    private javax.swing.JLabel title_fila2;
+    private javax.swing.JLabel title_fila3;
     // End of variables declaration//GEN-END:variables
+
+
 }

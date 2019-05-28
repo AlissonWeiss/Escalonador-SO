@@ -6,6 +6,7 @@
 package telaprincipal;
 
 import escalonador.processos.ProcessarArquivo;
+import ajustes.AjustarJanelas;
 /**
  *
  * @author aliss
@@ -41,7 +42,7 @@ public class TelaInicial extends javax.swing.JFrame {
         lbl_integrantes = new javax.swing.JLabel();
         lbl_alisson = new javax.swing.JLabel();
         lbl_lucas = new javax.swing.JLabel();
-        lbl_fillipe = new javax.swing.JLabel();
+        lbl_fellippe = new javax.swing.JLabel();
         btn_escolher_arquivo = new javax.swing.JButton();
         lbl_processo = new javax.swing.JLabel();
 
@@ -74,7 +75,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         lbl_lucas.setText("-Lucas Siqueira");
 
-        lbl_fillipe.setText("-Luiz Fillipe");
+        lbl_fellippe.setText("-Luiz Fellippe");
 
         javax.swing.GroupLayout pnl_integrantesLayout = new javax.swing.GroupLayout(pnl_integrantes);
         pnl_integrantes.setLayout(pnl_integrantesLayout);
@@ -83,7 +84,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(pnl_integrantesLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pnl_integrantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_fillipe)
+                    .addComponent(lbl_fellippe)
                     .addComponent(lbl_lucas)
                     .addComponent(lbl_alisson)
                     .addComponent(lbl_integrantes))
@@ -99,7 +100,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_lucas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_fillipe)
+                .addComponent(lbl_fellippe)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -128,7 +129,6 @@ public class TelaInicial extends javax.swing.JFrame {
         if (arq.getAbriu()){
         
             TelaPrincipal tela = new TelaPrincipal();
-
             dispose();
             tela.setVisible(true);
         }
@@ -174,7 +174,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btn_escolher_arquivo;
     private javax.swing.JLabel lbl_alisson;
     private javax.swing.JLabel lbl_escalonador;
-    private javax.swing.JLabel lbl_fillipe;
+    private javax.swing.JLabel lbl_fellippe;
     private javax.swing.JLabel lbl_integrantes;
     private javax.swing.JLabel lbl_lucas;
     private javax.swing.JLabel lbl_processo;

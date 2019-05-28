@@ -11,7 +11,7 @@ package escalonador.processos;
  */
 public class Processos {
     
-    
+    private int id;
     private int arrival_time;
     private int priority;
     private int service_time;
@@ -25,8 +25,9 @@ public class Processos {
     
     
     //CONSTRUTOR
-    public Processos(int arrival_time, int priority, int service_time, int tamanho, int impressora, int disco){
+    public Processos(int id, int arrival_time, int priority, int service_time, int tamanho, int impressora, int disco){
         
+        this.id = id;
         this.arrival_time = arrival_time;
         this.priority = priority;
         this.service_time = service_time;
@@ -37,8 +38,9 @@ public class Processos {
     }
 
     public void imprimirProcesso(){
-            
+                
         System.out.println("PROCESSO:");
+        System.out.printf("ID: %d ", this.getID());
         System.out.printf("Arrival Time: %d ", this.getArrival_time());
         System.out.printf("Priority: %d ", this.getPriority());
         System.out.printf("Service Time: %d ", this.getService_time());
@@ -51,6 +53,15 @@ public class Processos {
     
     
     //GETTERS & SETTERS
+    
+    public int getID(){
+        return id;
+    }
+    
+    public void setID(int id){
+        this.id = id;
+    }
+    
     public int getArrival_time() {
         return arrival_time;
     }

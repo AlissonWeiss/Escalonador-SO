@@ -12,9 +12,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import telaprincipal.TelaPrincipal;
 
 /**
  *
@@ -26,10 +28,18 @@ public class ProcessarArquivo {
     
     private boolean abriu;
     
+    private static ArrayList<Processos> lista;
+        
     public boolean getAbriu(){
         return this.abriu;
     }
-       
+    
+    
+    public static ArrayList<Processos> getArrayList(){
+        
+        return lista;
+        
+    }
     
     public String escolherArquivo(){
         
@@ -62,14 +72,26 @@ public class ProcessarArquivo {
             BufferedReader br = new BufferedReader(new FileReader(caminho));
                        
             this.abriu = true;
-               
+            
+            lista = new ArrayList<>();
+            
             try {
                 
-                ListaEncadeada lista = lerEGravarProcessoEmLista(br);
                 
-                lista.imprimirLista();
+                lista = lerEGravarProcessoEmLista(br);
                 
-            } catch (Exception e) {
+                //IMPRIME LISTA DE PROCESSOS
+                          
+                //lista.imprimirLista();
+                
+                //SETA A LISTA DA CLASSE LISTA ENCADEADA
+                //lista.setListaEncadeada(lista.lista);
+                              
+                
+            } catch (IOException e) {
+                
+                System.out.println("ERRO: " + e);
+                
             }
             
             
@@ -82,13 +104,12 @@ public class ProcessarArquivo {
                 
     }
     
-    public ListaEncadeada lerEGravarProcessoEmLista(BufferedReader file) throws IOException{
+    public ArrayList<Processos> lerEGravarProcessoEmLista(BufferedReader file) throws IOException{
                
-        
-        ListaEncadeada lista = null;
         
         try {        
             
+            int id = 0;
             int arrival_time;
             int priority;
             int service_time;
@@ -97,12 +118,13 @@ public class ProcessarArquivo {
             int disco;
                         
             String linha = file.readLine();            
-            lista = new ListaEncadeada();
-            
+            lista = new ArrayList<>();
+           
             while (linha != null){
-                                
+                         
                 //SEPARA LINHA LIDA DO ARQUIVO DE PROCESSOS
                 if (linha.length() > 0){
+                    
                     String vetor[] = linha.split(", ");
                         Processos novo = new Processos();
 
@@ -115,6 +137,7 @@ public class ProcessarArquivo {
                     disco        = Integer.parseInt(vetor[5]);
 
                     //SETA OS VALORES PARA O OBJETO PROCESSOS
+                    novo.setID(id);
                     novo.setArrival_time(arrival_time);
                     novo.setPriority(priority);
                     novo.setService_time(service_time);
@@ -123,17 +146,18 @@ public class ProcessarArquivo {
                     novo.setDisco(disco);
 
                     //ADICIONA PROCESSO NO FINAL DA LISTA
-                    lista.inserirProcesso(novo);
+                    lista.add(novo);
+                    id++;
                     
                 }
-                //LE PROXIMA LINHA
+                //LE PROXIMA LINHA DE PROCESSOS
                 linha = file.readLine();
             }
             
             return lista;   
             
             
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             System.out.println(e);
         }
 
@@ -142,5 +166,21 @@ public class ProcessarArquivo {
         
     }
     
+    
+    public String lista_txt_processos(ArrayList lista){
+        
+        String lista_txt = "";
+        Processos aux;
+        for (int i = 0; i > lista.size(); i++){
+            
+            aux = (Processos)lista.get(i);
+            lista_txt = lista_txt.concat(Integer.toString(aux.getID()) + " - ");
+        }
+         
+        System.out.println("LISTA: "+lista_txt);
+        
+        return lista_txt + "olá";
+        
+    }
+    
 }
-
