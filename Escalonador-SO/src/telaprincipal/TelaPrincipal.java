@@ -100,6 +100,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lbl_memoria_utilizada = new javax.swing.JLabel();
+        btn_avancar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        lbl_tempo_atual = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         processador0 = new javax.swing.JLabel();
         processador1 = new javax.swing.JLabel();
@@ -109,8 +112,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_processador1 = new javax.swing.JLabel();
         lbl_processador2 = new javax.swing.JLabel();
         lbl_processador3 = new javax.swing.JLabel();
-        btn_avancar = new javax.swing.JButton();
-        lbl_tempo_atual = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         title_fila0 = new javax.swing.JLabel();
         lbl_fila0 = new javax.swing.JLabel();
@@ -120,7 +121,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_fila2 = new javax.swing.JLabel();
         title_fila3 = new javax.swing.JLabel();
         lbl_fila3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,18 +137,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lbl_memoria_utilizada.setText("0 MB");
 
+        btn_avancar.setText("Avançar Time Slice");
+        btn_avancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_avancarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Tempo Atual:");
+
+        lbl_tempo_atual.setText("0");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(547, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_memoria_utilizada)
-                .addGap(99, 99, 99))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_memoria_utilizada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbl_tempo_atual))
+                            .addComponent(btn_avancar))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +181,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addComponent(lbl_memoria_utilizada))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lbl_tempo_atual))
+                .addGap(18, 18, 18)
+                .addComponent(btn_avancar)
+                .addGap(56, 56, 56))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -189,15 +218,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_processador3.setText("ID PROCESSO");
         jPanel3.add(lbl_processador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 100, -1, -1));
 
-        btn_avancar.setText("Avançar Time Slice");
-        btn_avancar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_avancarActionPerformed(evt);
-            }
-        });
-
-        lbl_tempo_atual.setText("0");
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Fila de Processos"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -226,8 +246,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_fila3.setText("Fila 3");
         jPanel4.add(lbl_fila3, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 177, -1, -1));
 
-        jLabel4.setText("Tempo Atual:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -241,7 +259,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,15 +268,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1356, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_tempo_atual))
-                    .addComponent(btn_avancar))
-                .addGap(126, 126, 126))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,13 +285,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lbl_tempo_atual))
-                .addGap(35, 35, 35)
-                .addComponent(btn_avancar)
-                .addGap(38, 38, 38))
+                .addGap(96, 143, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
