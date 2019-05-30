@@ -7,6 +7,7 @@ package ajustes;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,12 +19,15 @@ public class AjustarJanelas {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         tela.setTitle("Escalonador de Processos");
-        tela.setResizable(false);
-        
-        screenSize.setSize((int)(screenSize.getWidth()), (int)screenSize.getHeight() - (screenSize.getHeight() * 0.1));
+        tela.setResizable(true);
+        tela.dispose();
+        tela.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //tela.setUndecorated(true);
+        //screenSize.setSize((int)(screenSize.getWidth()), (int)screenSize.getHeight() - (screenSize.getHeight() * 0.08));
         tela.setMaximumSize(screenSize);
         tela.setMinimumSize(screenSize);
-        
+        tela.setVisible(true);
+       
         
     }
 

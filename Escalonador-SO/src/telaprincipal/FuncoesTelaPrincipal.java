@@ -21,6 +21,8 @@ public class FuncoesTelaPrincipal {
     private ArrayList<Processos> fila2;
     private ArrayList<Processos> fila3;
     
+    private int memoriaPrincipal = 16384; //EM MB
+    private int memoriaUtilizada = 0; //EM MB
     
     public FuncoesTelaPrincipal(){
         
@@ -29,40 +31,58 @@ public class FuncoesTelaPrincipal {
         fila0 = new ArrayList<>();
         fila1 = new ArrayList<>();
         fila2 = new ArrayList<>();
-        fila3 = new ArrayList<>();
+        fila3 = new ArrayList<>();    
         
+    }
+    public int getMemoriaPrincipal() {
+        return memoriaPrincipal;
+    }
+
+    public int getMemoriaUtilizada() {
+        return memoriaUtilizada;
+    }
+
+    public void setMemoriaUtilizada(int memoriaUtilizada) {
+        this.memoriaUtilizada = memoriaUtilizada;
+    }
+     
+    
+    public ArrayList<Processos> getArrayList(){
         
-        for (int i = 0; i < lista.size(); i++){
+        return lista;
+        
+    }
+    
+    public void incrementarMemoriaUsada(int memoria){
+        
+        setMemoriaUtilizada(getMemoriaUtilizada() + memoria);
+        
+    }
+    
+    
+    public void colocarNaFilaDePrioridade(Processos processo){
+        
+        switch(processo.getPriority()){
             
-            switch (lista.get(i).getPriority()) {
-                
                 case 0:
-                    fila0.add(lista.get(i));
+                    fila0.add(processo);
                     break;
                 case 1:
-                    fila1.add(lista.get(i));
+                    fila1.add(processo);
                     break;
                 case 2:
-                    fila2.add(lista.get(i));
+                    fila2.add(processo);
                     break;
                 case 3:
-                    fila3.add(lista.get(i));
+                    fila3.add(processo);
                     break;
                 default:
-                    break;
-                    
-            }
-
+                    break;          
+                       
         }
-       
-        
-        TelaPrincipal.setFila0(concatenar_fila(fila0));
-        TelaPrincipal.setFila1(concatenar_fila(fila1));
-        TelaPrincipal.setFila2(concatenar_fila(fila2));
-        TelaPrincipal.setFila3(concatenar_fila(fila3));
-        
-        
-    }        
+                
+    }
+    
     public String concatenar_fila(ArrayList<Processos> lista){
             
         String texto = "ID: ";
@@ -72,8 +92,8 @@ public class FuncoesTelaPrincipal {
             
             
             aux = Integer.toString(lista.get(i).getID());
-            texto = texto.concat(aux + " - ");
             
+            texto = texto.concat(" - " + aux);
             
         }
         
@@ -81,4 +101,24 @@ public class FuncoesTelaPrincipal {
             
     }
     
+    public void atualizaListaDeChegada(ArrayList<Processos> lista, int tempoAtual){
+        
+        for (Processos i: lista){
+            
+            if (i.getArrival_time() == tempoAtual){
+                
+                colocarNaFilaDePrioridade(i);
+                incrementarMemoriaUsada(i.getTamanho());
+
+            }  
+        }
+        
+        TelaPrincipal.setFila0(concatenar_fila(fila0));
+        TelaPrincipal.setFila1(concatenar_fila(fila1));
+        TelaPrincipal.setFila2(concatenar_fila(fila2));
+        TelaPrincipal.setFila3(concatenar_fila(fila3));
+        
+     
+    }
+
 }

@@ -14,9 +14,7 @@ public class Escalonadores {
 
     public void FCFS(Processos processo){
         
-            
-        
-        
+          
         
     }
     

@@ -2,7 +2,6 @@
 Classe ProcessarArquivo receberá arquivo de processos (txt)
 abrir arquivo com JFileChooser
 
-
 */
 
 
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import telaprincipal.TelaPrincipal;
 
 /**
  *
@@ -78,15 +76,18 @@ public class ProcessarArquivo {
             try {
                 
                 
+                //RETORNA LISTA DE PROCESSOS LIDOS EM ARQUIVO TEXTO
                 lista = lerEGravarProcessoEmLista(br);
                 
-                //IMPRIME LISTA DE PROCESSOS
-                          
-                //lista.imprimirLista();
                 
-                //SETA A LISTA DA CLASSE LISTA ENCADEADA
-                //lista.setListaEncadeada(lista.lista);
-                              
+                //ORDENA ARRAY LIST POR ARRIVAL TIME
+                lista = ordenarArrayList(lista);
+                
+                for (int i = 0; i < lista.size(); i++){
+                    
+                    lista.get(i).imprimirProcesso();
+                    
+                }                            
                 
             } catch (IOException e) {
                 
@@ -109,6 +110,8 @@ public class ProcessarArquivo {
         
         try {        
             
+            
+            //INICIALIZAÇÃO DAS VARIÁVEIS LOCAIS
             int id = 0;
             int arrival_time;
             int priority;
@@ -125,6 +128,7 @@ public class ProcessarArquivo {
                 //SEPARA LINHA LIDA DO ARQUIVO DE PROCESSOS
                 if (linha.length() > 0){
                     
+                    //SEPARA A LISTA PELO PARAMETRO PASSADO
                     String vetor[] = linha.split(", ");
                         Processos novo = new Processos();
 
@@ -147,12 +151,15 @@ public class ProcessarArquivo {
 
                     //ADICIONA PROCESSO NO FINAL DA LISTA
                     lista.add(novo);
+                    
+                    //INCREMENTA O ID DO PROCESSO
                     id++;
                     
                 }
                 //LE PROXIMA LINHA DE PROCESSOS
                 linha = file.readLine();
             }
+            
             
             return lista;   
             
@@ -166,6 +173,44 @@ public class ProcessarArquivo {
         
     }
     
+    public ArrayList<Processos> ordenarArrayList(ArrayList<Processos> lista){
+        
+        //PEGA O PRIMEIRO ARRIVAL TIME COMO O MENOR
+        int arrival_time;
+        
+        ArrayList<Processos> lista_aux = new ArrayList<>();
+        
+        Processos processo_aux;
+        
+        
+        //PERCORRE A LISTA ENQUANTO ELA NÃO ESTÁ VAZIA
+        while(!lista.isEmpty()){
+            
+            arrival_time  = lista.get(0).getArrival_time();
+        
+            processo_aux = null;
+            
+            //FOR ITERATIVO PERCORRENDO A LISTA E PEGANDO PROCESSO
+            for (Processos i: lista){
+
+                //COMPARA OS ARRIVAL TIME
+                if (i.getArrival_time() <= arrival_time){
+                    arrival_time = i.getArrival_time();
+                    processo_aux = i;
+                }
+            }
+            
+            //VERIFICA SE PROCESSO FOI ENCONTRADO
+            if (processo_aux != null){
+                
+                lista_aux.add(processo_aux);
+                lista.remove(processo_aux);
+            }
+
+        }
+        
+        return lista_aux;
+    }
     
     public String lista_txt_processos(ArrayList lista){
         
@@ -179,7 +224,7 @@ public class ProcessarArquivo {
          
         System.out.println("LISTA: "+lista_txt);
         
-        return lista_txt + "olá";
+        return lista_txt;
         
     }
     
