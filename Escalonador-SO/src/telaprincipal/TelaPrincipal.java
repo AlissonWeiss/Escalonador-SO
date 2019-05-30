@@ -9,6 +9,7 @@ import ajustes.AjustarJanelas;
 import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
+import escalonador.processos.Cpu;
 
 
 /**
@@ -24,6 +25,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private FuncoesTelaPrincipal func;
     private int tempoAtual; 
     private ArrayList<Processos> lista;
+    private Cpu cpu0;
+    private Cpu cpu1;
+    private Cpu cpu2;
+    private Cpu cpu3;
     
     public TelaPrincipal() {
         
@@ -31,6 +36,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ajustes.AjustarJanelas tela = new AjustarJanelas();
         tela.ajustarJanelas(this);
         func = new FuncoesTelaPrincipal();
+        cpu0 = new Cpu();
+        cpu1 = new Cpu();
+        cpu2 = new Cpu();
+        cpu3 = new Cpu();
         tempoAtual = 0;
         lista = func.getArrayList();
                

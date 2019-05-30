@@ -41,6 +41,12 @@ public class Cpu {
     }
     
     public void liberaCPU() {
+        // Libera a CPU para ser usada por outro processo
         this.processoAtual = null;
+    }
+    
+    public boolean estaLivre() {
+        // Retorna true se não há um processo na CPU
+        return this.processoAtual == null;
     }
 }
