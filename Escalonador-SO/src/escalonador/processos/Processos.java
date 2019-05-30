@@ -15,6 +15,7 @@ public class Processos {
     private int arrival_time;
     private int priority;
     private int service_time;
+    private int service_time_restante;
     private int tamanho;
     private int impressora;
     private int disco;
@@ -31,6 +32,7 @@ public class Processos {
         this.arrival_time = arrival_time;
         this.priority = priority;
         this.service_time = service_time;
+        this.service_time_restante = service_time; /*Tempo restante é igual ao tempo total na hora que o processo é criado*/
         this.tamanho = tamanho;
         this.impressora = impressora;
         this.disco = disco;
@@ -44,6 +46,7 @@ public class Processos {
         System.out.printf("Arrival Time: %d ", this.getArrival_time());
         System.out.printf("Priority: %d ", this.getPriority());
         System.out.printf("Service Time: %d ", this.getService_time());
+        System.out.printf("Service Time Restante: %d ", this.getService_time_restante());
         System.out.printf("Tamanho: %d ", this.getTamanho());
         System.out.printf("Impressora: %d ", this.getImpressora());
         System.out.printf("Disco: %d ", this.getDisco());
@@ -85,7 +88,15 @@ public class Processos {
     public void setService_time(int service_time) {
         this.service_time = service_time;
     }
+    
+    public int getService_time_restante() {
+        return service_time_restante;
+    }
 
+    public void setService_time_restante(int service_time_restante) {
+        this.service_time_restante = service_time_restante;
+    }
+    
     public int getTamanho() {
         return tamanho;
     }
