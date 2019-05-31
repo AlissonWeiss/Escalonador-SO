@@ -148,7 +148,8 @@ public class ProcessarArquivo {
                     novo.setTamanho(tamanho);
                     novo.setImpressora(impressora);
                     novo.setDisco(disco);
-
+                    novo.setService_time_restante(service_time);
+                    
                     //ADICIONA PROCESSO NO FINAL DA LISTA
                     lista.add(novo);
                     

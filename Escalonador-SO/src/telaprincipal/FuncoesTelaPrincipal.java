@@ -5,6 +5,8 @@
  */
 package telaprincipal;
 
+import escalonador.processos.Cpu;
+import escalonador.processos.Escalonadores;
 import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
@@ -24,6 +26,12 @@ public class FuncoesTelaPrincipal {
     private int memoriaPrincipal = 16384; //EM MB
     private int memoriaUtilizada = 0; //EM MB
     
+    private Cpu cpu0;
+    private Cpu cpu1;
+    private Cpu cpu2;
+    private Cpu cpu3;
+    private Escalonadores escalonador;
+    
     public FuncoesTelaPrincipal(){
         
         this.lista = ProcessarArquivo.getArrayList();
@@ -31,9 +39,23 @@ public class FuncoesTelaPrincipal {
         fila0 = new ArrayList<>();
         fila1 = new ArrayList<>();
         fila2 = new ArrayList<>();
-        fila3 = new ArrayList<>();    
+        fila3 = new ArrayList<>();  
+        
+        cpu0 = new Cpu();
+        cpu1 = new Cpu();
+        cpu2 = new Cpu();
+        cpu3 = new Cpu();
+        
+        escalonador = new Escalonadores(fila0, fila1, fila2, fila3, cpu0, cpu1, cpu2, cpu3);
         
     }
+    
+    public Escalonadores getEscalonador(){
+        
+        return escalonador;
+        
+    }
+    
     public int getMemoriaPrincipal() {
         return memoriaPrincipal;
     }
@@ -71,14 +93,13 @@ public class FuncoesTelaPrincipal {
                     fila1.add(processo);
                     break;
                 case 2:
-                    fila2.add(processo);
+                    fila1.add(processo);
                     break;
                 case 3:
-                    fila3.add(processo);
+                    fila1.add(processo);
                     break;
                 default:
-                    break;          
-                       
+                    break;                       
         }
                 
     }

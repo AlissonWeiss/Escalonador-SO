@@ -1,19 +1,28 @@
 package escalonador.processos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Fellippe
  */
 public class Cpu {
+    
     private Processos processoAtual;
+    private int tempoExecutando;
+    private boolean fimProcessamento;
     
     // CONSTRUTORES
     public Cpu() {
-        this.processoAtual = null;
+    
+        this.tempoExecutando = 0;
+        this.fimProcessamento = false;
     }
     
     public Cpu(Processos processo) {
         this.processoAtual = processo;
+        this.tempoExecutando = 0;
+        this.fimProcessamento = false;
     }
     
     // GETTERS E SETTERS
@@ -25,19 +34,52 @@ public class Cpu {
         this.processoAtual = processo;
     }
     
+    public int getTempoExecutando(){
+        return tempoExecutando;
+    }
+    
+    public void setTempoExecutando(int tempoExecutando){
+        this.tempoExecutando = tempoExecutando;
+    }
+    
+    public void setFimProcessamento(boolean fimProcessamento){
+        this.fimProcessamento = fimProcessamento;
+    }
+    
+    public boolean getFimProcessamento(){
+        
+        return fimProcessamento;
+        
+    }
+    
     // MÉTODOS
     public void executaProcessoAtual() {
-        // Checa se existe um processo na CPU e se ele ainda tem tempo restante para ser executado
-        if (this.getProcessoAtual() != null) {
-            if (processoAtual.getService_time_restante() > 0) {
+        
+        if (getTempoExecutando() < Escalonadores.getQuantum()){
 
-                // Decrementa 1 unidade de tempo
-                processoAtual.setService_time_restante(processoAtual.getService_time_restante() - 1);
-            }
-            else {
-                System.out.println("Processo c/ ID:" + processoAtual.getID() + " finalizado.");
+            
+            // Checa se existe um processo na CPU e se ele ainda tem tempo restante para ser executado
+            if (this.getProcessoAtual() != null) {
+                if (processoAtual.getService_time_restante() > 0) {
+
+                    // Decrementa 1 unidade de tempo
+                    processoAtual.setService_time_restante(processoAtual.getService_time_restante() - 1);
+                }
+                else {
+                    setFimProcessamento(true);
+                    
+                    JOptionPane.showMessageDialog(null, "Processo c/ ID: " + processoAtual.getID() + " finalizado!");
+                    System.out.println("Processo c/ ID:" + processoAtual.getID() + " finalizado.");
+                    this.liberaCPU();
+                }
             }
         }
+        else{
+            
+            fimProcessamento = true;
+            
+        }
+        
     }
     
     public void liberaCPU() {

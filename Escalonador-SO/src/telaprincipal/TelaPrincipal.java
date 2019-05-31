@@ -10,6 +10,7 @@ import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
 import escalonador.processos.Cpu;
+import escalonador.processos.Escalonadores;
 
 
 /**
@@ -24,11 +25,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private FuncoesTelaPrincipal func;
     private int tempoAtual; 
-    private ArrayList<Processos> lista;
-    private Cpu cpu0;
-    private Cpu cpu1;
-    private Cpu cpu2;
-    private Cpu cpu3;
+    private ArrayList<Processos> lista;    
     
     public TelaPrincipal() {
         
@@ -36,14 +33,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ajustes.AjustarJanelas tela = new AjustarJanelas();
         tela.ajustarJanelas(this);
         func = new FuncoesTelaPrincipal();
-        cpu0 = new Cpu();
-        cpu1 = new Cpu();
-        cpu2 = new Cpu();
-        cpu3 = new Cpu();
         tempoAtual = 0;
+
         lista = func.getArrayList();
-               
-        
+                
     }
     
     public void setLblMemoriaUsada(int memoriaUsada){
@@ -92,6 +85,48 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_fila3.setText(texto);
         
     }
+    
+    //SETTERS DOS LABLES
+    
+    
+    public static void setLblCpus(String texto, int id){
+    
+        if (id == 0)
+            setLblCpu0(texto);
+        if (id == 1)
+            setLblCpu1(texto);
+        if (id == 2)
+            setLblCpu2(texto);
+        if (id == 3)
+            setLblCpu3(texto);
+        
+    }
+    
+    
+    public static void setLblCpu0(String texto){
+        
+        lbl_processador0.setText(texto);
+        
+    }
+    
+    public static void setLblCpu1(String texto){
+        
+        lbl_processador1.setText(texto);
+        
+    }
+    
+    public static void setLblCpu2(String texto){
+        
+        lbl_processador2.setText(texto);
+        
+    }
+    
+    public static void setLblCpu3(String texto){
+        
+        lbl_processador3.setText(texto);
+        
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -305,9 +340,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btn_avancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_avancarActionPerformed
         
         func.atualizaListaDeChegada(lista, getTempoAtual());
+        func.getEscalonador().escalonar();
         incrementaTempoAtual();
         setLblTempoAtual(getTempoAtual());
         setLblMemoriaUsada(func.getMemoriaUtilizada());
+        
     }//GEN-LAST:event_btn_avancarActionPerformed
 
     /**
@@ -361,10 +398,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private static javax.swing.JLabel lbl_fila2;
     private static javax.swing.JLabel lbl_fila3;
     private javax.swing.JLabel lbl_memoria_utilizada;
-    private javax.swing.JLabel lbl_processador0;
-    private javax.swing.JLabel lbl_processador1;
-    private javax.swing.JLabel lbl_processador2;
-    private javax.swing.JLabel lbl_processador3;
+    private static javax.swing.JLabel lbl_processador0;
+    private static javax.swing.JLabel lbl_processador1;
+    private static javax.swing.JLabel lbl_processador2;
+    private static javax.swing.JLabel lbl_processador3;
     private javax.swing.JLabel lbl_tempo_atual;
     private javax.swing.JLabel processador0;
     private javax.swing.JLabel processador1;
