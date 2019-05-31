@@ -6,7 +6,6 @@
 package telaprincipal;
 
 import escalonador.processos.ProcessarArquivo;
-import ajustes.AjustarJanelas;
 /**
  *
  * @author aliss

@@ -6,11 +6,8 @@
 package telaprincipal;
 
 import ajustes.AjustarJanelas;
-import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
-import escalonador.processos.Cpu;
-import escalonador.processos.Escalonadores;
 
 
 /**
@@ -28,15 +25,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private ArrayList<Processos> lista;    
     
     public TelaPrincipal() {
-        
         initComponents(); 
         ajustes.AjustarJanelas tela = new AjustarJanelas();
         tela.ajustarJanelas(this);
         func = new FuncoesTelaPrincipal();
-        tempoAtual = 0;
+        tempoAtual = -1;
 
         lista = func.getArrayList();
-                
+        atualizaTelaPrincipal();
+
     }
     
     public void setLblMemoriaUsada(int memoriaUsada){
@@ -125,6 +122,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         lbl_processador3.setText(texto);
         
+    }
+    
+    public void atualizaTelaPrincipal(){
+        incrementaTempoAtual();
+        func.atualizaListaDeChegada(lista, getTempoAtual());
+        func.getEscalonador().escalonar();        
+        setLblTempoAtual(getTempoAtual());
+        setLblMemoriaUsada(func.getMemoriaUtilizada());
     }
     
     
@@ -339,11 +344,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btn_avancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_avancarActionPerformed
         
-        func.atualizaListaDeChegada(lista, getTempoAtual());
-        func.getEscalonador().escalonar();
-        incrementaTempoAtual();
-        setLblTempoAtual(getTempoAtual());
-        setLblMemoriaUsada(func.getMemoriaUtilizada());
+        atualizaTelaPrincipal();
         
     }//GEN-LAST:event_btn_avancarActionPerformed
 

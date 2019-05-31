@@ -16,10 +16,10 @@ import telaprincipal.TelaPrincipal;
 
 public class Escalonadores {
 
-    private ArrayList<Processos> fila0;
-    private ArrayList<Processos> fila1;
-    private ArrayList<Processos> fila2;
-    private ArrayList<Processos> fila3;
+    private static ArrayList<Processos> fila0;
+    private static ArrayList<Processos> fila1;
+    private static ArrayList<Processos> fila2;
+    private static ArrayList<Processos> fila3;
     private Cpu cpu0;
     private Cpu cpu1;
     private Cpu cpu2;
@@ -57,7 +57,26 @@ public class Escalonadores {
         return quantum;
         
     }
-
+    public static void setFila1(ArrayList<Processos> fila1){
+        Escalonadores.fila1 = fila1;
+    }
+    public static void setFila2(ArrayList<Processos> fila1){
+        Escalonadores.fila2 = fila1;
+    }
+    public static void setFila3(ArrayList<Processos> fila1){
+        Escalonadores.fila3 = fila1;
+    }
+            
+    public static ArrayList<Processos> getFila1(){
+        return fila1;
+    }    
+    public static ArrayList<Processos> getFila2(){
+        return fila2;
+    }    
+    public static ArrayList<Processos> getFila3(){
+        return fila3;
+    }    
+    
     
     public void incrementaQuantum(int quantum) {
         this.quantum += quantum;
@@ -86,17 +105,19 @@ public class Escalonadores {
         if (encontraCpuVazia() != null){
             
         
-            if (this.fila0.size() > 0){
+            if (Escalonadores.fila0.size() > 0){
                 
                 FCFS(encontraCpuVazia());
 
             }
-            else if ((this.fila1.size() > 0) || (this.fila2.size() > 0) || (this.fila3.size() > 0)){
+            if ((Escalonadores.fila1.size() > 0) || (Escalonadores.fila2.size() > 0) || (Escalonadores.fila3.size() > 0)){
 
                 FeedBack(encontraCpuVazia());
-
+                
             }
         }
+                    
+        
         cpu0.executaProcessoAtual();
         cpu1.executaProcessoAtual();
         cpu2.executaProcessoAtual();
@@ -165,18 +186,38 @@ public class Escalonadores {
         cpu.setProcessoAtual(fila0.get(0));
         
         fila0.remove(fila0.get(0));
-        
-        if (cpu.getFimProcessamento()){
-            JOptionPane.showConfirmDialog(null, "FIM PROCESSAMENTO");
-            
-        }
-        
+                
     }
 
     
     public void FeedBack(Cpu cpu){
         
-        System.out.println("FeedBack");
+        cpu.setFimProcessamento(false);
+        
+        if (!fila1.isEmpty()){
+            
+            cpu.setProcessoAtual(fila1.get(0));
+            fila1.remove(fila1.get(0));
+            cpu.setFilaAtual(1);
+            
+        }
+        
+        else if (!fila2.isEmpty()){
+            
+            cpu.setProcessoAtual(fila2.get(0));
+            fila2.remove(fila2.get(0));
+            cpu.setFilaAtual(2);
+            
+        }
+        
+        else if (!fila3.isEmpty()){
+            
+            cpu.setProcessoAtual(fila3.get(0));
+            fila3.remove(fila3.get(0));
+            cpu.setFilaAtual(3);
+        
+        }
+        
         
     }
     
