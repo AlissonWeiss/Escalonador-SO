@@ -23,7 +23,7 @@ public class FuncoesTelaPrincipal {
     private ArrayList<Processos> fila2;
     private ArrayList<Processos> fila3;
     
-    private int memoriaPrincipal = 16384; //EM MB
+    private final int memoriaPrincipal = 16384; //EM MB
     private int memoriaUtilizada = 0; //EM MB
     
     private Cpu cpu0;

@@ -79,7 +79,7 @@ public class Escalonadores {
     
     
     public void incrementaQuantum(int quantum) {
-        this.quantum += quantum;
+        Escalonadores.quantum += quantum;
     }
     
     public Cpu encontraCpuVazia(){
@@ -94,7 +94,7 @@ public class Escalonadores {
         else if (cpu3.estaLivre()) return cpu3;
 
         
-        //RETORNA NULL CASO NENHUM ESTEJA VAZIO
+        //RETORNA NULL CASO NENHUM ESTEJA LIVRE
         return null;
         
     }
@@ -117,6 +117,9 @@ public class Escalonadores {
             }
         }
                     
+        if (encontraCpuVazia() != null && (!fila0.isEmpty() || !fila1.isEmpty() || !fila2.isEmpty() || !fila3.isEmpty())){
+            escalonar();
+        }
         
         cpu0.executaProcessoAtual();
         cpu1.executaProcessoAtual();
@@ -124,6 +127,8 @@ public class Escalonadores {
         cpu3.executaProcessoAtual();
         
         atualizaLabel();
+        
+
         
         }
     
@@ -182,43 +187,44 @@ public class Escalonadores {
     
     
     public void FCFS(Cpu cpu){
+        
         cpu.setFimProcessamento(false);
         cpu.setProcessoAtual(fila0.get(0));
         
         fila0.remove(fila0.get(0));
                 
     }
-
     
     public void FeedBack(Cpu cpu){
         
-        cpu.setFimProcessamento(false);
-        
-        if (!fila1.isEmpty()){
+        if (cpu != null){
             
-            cpu.setProcessoAtual(fila1.get(0));
-            fila1.remove(fila1.get(0));
-            cpu.setFilaAtual(1);
-            
+            cpu.setFimProcessamento(false);
+
+            if (!fila1.isEmpty()){
+
+                cpu.setProcessoAtual(fila1.get(0));
+                fila1.remove(fila1.get(0));
+                cpu.setFilaAtual(1);
+
+            }
+
+            else if (!fila2.isEmpty()){
+
+                cpu.setProcessoAtual(fila2.get(0));
+                fila2.remove(fila2.get(0));
+                cpu.setFilaAtual(2);
+
+            }
+
+            else if (!fila3.isEmpty()){
+
+                cpu.setProcessoAtual(fila3.get(0));
+                fila3.remove(fila3.get(0));
+                cpu.setFilaAtual(3);
+
+            }
         }
-        
-        else if (!fila2.isEmpty()){
-            
-            cpu.setProcessoAtual(fila2.get(0));
-            fila2.remove(fila2.get(0));
-            cpu.setFilaAtual(2);
-            
-        }
-        
-        else if (!fila3.isEmpty()){
-            
-            cpu.setProcessoAtual(fila3.get(0));
-            fila3.remove(fila3.get(0));
-            cpu.setFilaAtual(3);
-        
-        }
-        
-        
     }
     
 }
