@@ -122,6 +122,14 @@ public class FuncoesTelaPrincipal {
             
     }
     
+    
+    public void atualizarListasLBL(){
+        TelaPrincipal.setFila0(concatenar_fila(fila0));
+        TelaPrincipal.setFila1(concatenar_fila(fila1));
+        TelaPrincipal.setFila2(concatenar_fila(fila2));
+        TelaPrincipal.setFila3(concatenar_fila(fila3));
+    }
+    
     public void atualizaListaDeChegada(ArrayList<Processos> lista, int tempoAtual){
         
         for (Processos i: lista){
@@ -134,11 +142,7 @@ public class FuncoesTelaPrincipal {
             }  
         }
         
-        TelaPrincipal.setFila0(concatenar_fila(fila0));
-        TelaPrincipal.setFila1(concatenar_fila(fila1));
-        TelaPrincipal.setFila2(concatenar_fila(fila2));
-        TelaPrincipal.setFila3(concatenar_fila(fila3));
-        
+        atualizarListasLBL();
      
     }
 

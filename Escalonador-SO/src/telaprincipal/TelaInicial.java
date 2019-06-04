@@ -5,6 +5,7 @@
  */
 package telaprincipal;
 
+import ajustes.AjustarJanelas;
 import escalonador.processos.ProcessarArquivo;
 /**
  *
@@ -126,8 +127,10 @@ public class TelaInicial extends javax.swing.JFrame {
         arq.escolherArquivo();
         
         if (arq.getAbriu()){
-        
+            ajustes.AjustarJanelas tela_ajustes = new AjustarJanelas();
+
             TelaPrincipal tela = new TelaPrincipal();
+            tela_ajustes.ajustarJanelas(tela);
             dispose();
             tela.setVisible(true);
         }

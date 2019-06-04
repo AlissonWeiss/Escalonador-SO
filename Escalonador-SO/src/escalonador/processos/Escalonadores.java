@@ -6,7 +6,6 @@
 package escalonador.processos;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import telaprincipal.TelaPrincipal;
 
 /**
@@ -35,10 +34,10 @@ public class Escalonadores {
     
     public Escalonadores(ArrayList<Processos> fila0, ArrayList<Processos> fila1, ArrayList<Processos> fila2, ArrayList<Processos> fila3, Cpu cpu0, Cpu cpu1, Cpu cpu2, Cpu cpu3){
         
-        this.fila0 = fila0;
-        this.fila1 = fila1;
-        this.fila2 = fila2;
-        this.fila3 = fila3;
+        Escalonadores.fila0 = fila0;
+        Escalonadores.fila1 = fila1;
+        Escalonadores.fila2 = fila2;
+        Escalonadores.fila3 = fila3;
         
         this.cpu0 = cpu0;
         this.cpu1 = cpu1;
@@ -104,34 +103,48 @@ public class Escalonadores {
         
         if (encontraCpuVazia() != null){
             
-        
+            //SE FILA PRIORITÁRIA POSSUIR PROCESSO, ELA É CHAMADA PRIMEIRO EXECUTANDO POR POLITICA FCFS
             if (Escalonadores.fila0.size() > 0){
                 
                 FCFS(encontraCpuVazia());
 
             }
-            if ((Escalonadores.fila1.size() > 0) || (Escalonadores.fila2.size() > 0) || (Escalonadores.fila3.size() > 0)){
+            //CASO CONTRÁRIO É CHAMADO ESCALONADOR DE POLITICA FEEDBACK
+            else if ((Escalonadores.fila1.size() > 0) || (Escalonadores.fila2.size() > 0) || (Escalonadores.fila3.size() > 0)){
 
                 FeedBack(encontraCpuVazia());
                 
             }
         }
-                    
+        
+        //VERIFICA SE TEM CPU VAZIA E SE TEM PROCESSO EM ALGUMA LISTA, SE TIVER, CHAMA A FUNCAO ESCALONAR RECURSIVAMENTE ATE A VERIFICACAO SER FALSA
         if (encontraCpuVazia() != null && (!fila0.isEmpty() || !fila1.isEmpty() || !fila2.isEmpty() || !fila3.isEmpty())){
             escalonar();
         }
-        
-        cpu0.executaProcessoAtual();
-        cpu1.executaProcessoAtual();
-        cpu2.executaProcessoAtual();
-        cpu3.executaProcessoAtual();
-        
-        atualizaLabel();
-        
+        //SE TODOS CPUS ESTÃO OCUPADOS E/OU NÃO TEM PROCESSOS EM FILAS
+        else{
+            
+            //EXECUTA PARALELAMENTE (CASO OUVER) OS PROCESSOS EM CADA CPU
 
-        
+            atualizaLabel();
+            
+            cpu0.executaProcessoAtual();
+            cpu1.executaProcessoAtual();
+            cpu2.executaProcessoAtual();
+            cpu3.executaProcessoAtual();
+
+            atualizaLabel();
+            
+            /*
+            if (encontraCpuVazia() != null && (!fila0.isEmpty() || !fila1.isEmpty() || !fila2.isEmpty() || !fila3.isEmpty())){
+                escalonar();
+            }
+            */
         }
+        
+    }
     
+    //RETORNA QUAL CPU ESTA SENDO USADO
     public int qualCpu(Cpu cpu){
         
         if (cpu == cpu0) return 0;
@@ -148,9 +161,10 @@ public class Escalonadores {
         
     }
     
+    //ATUALIZA LABEL DOS PROCESSADORES
     public void atualizaLabel(){
         
-        if (cpu0.getFimProcessamento()){
+        if (cpu0.estaLivre()){
             TelaPrincipal.setLblCpus("vazio" , qualCpu(cpu0));
         }
         else{
@@ -158,7 +172,7 @@ public class Escalonadores {
                 TelaPrincipal.setLblCpus(Integer.toString(cpu0.getProcessoAtual().getID()), qualCpu(cpu0));
         }
         
-        if (cpu1.getFimProcessamento()){
+        if (cpu1.estaLivre()){
             TelaPrincipal.setLblCpus("vazio" , qualCpu(cpu1));
         }
         else{
@@ -166,7 +180,7 @@ public class Escalonadores {
                 TelaPrincipal.setLblCpus(Integer.toString(cpu1.getProcessoAtual().getID()), qualCpu(cpu1));
         }
         
-        if (cpu2.getFimProcessamento()){
+        if (cpu2.estaLivre()){
             TelaPrincipal.setLblCpus("vazio" , qualCpu(cpu2));
         }
         else{
@@ -174,27 +188,26 @@ public class Escalonadores {
                 TelaPrincipal.setLblCpus(Integer.toString(cpu2.getProcessoAtual().getID()), qualCpu(cpu2));
         }
         
-        if (cpu3.getFimProcessamento()){
+        if (cpu3.estaLivre()){
             TelaPrincipal.setLblCpus("vazio" , qualCpu(cpu3));
         }
         else{
             if (cpu3.getProcessoAtual() != null)
                 TelaPrincipal.setLblCpus(Integer.toString(cpu3.getProcessoAtual().getID()), qualCpu(cpu3));
         }
-        
 
     }
     
-    
+    //ESCALONADOR DE POLITICA FCFS
     public void FCFS(Cpu cpu){
         
         cpu.setFimProcessamento(false);
         cpu.setProcessoAtual(fila0.get(0));
-        
         fila0.remove(fila0.get(0));
                 
     }
     
+    //ESCALONADOR DE POLITICA FEEDBACK
     public void FeedBack(Cpu cpu){
         
         if (cpu != null){
@@ -224,6 +237,7 @@ public class Escalonadores {
                 cpu.setFilaAtual(3);
 
             }
+            cpu.setTempoExecutando(0);
         }
     }
     

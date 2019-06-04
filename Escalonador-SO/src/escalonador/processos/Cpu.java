@@ -2,6 +2,7 @@ package escalonador.processos;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import telaprincipal.TelaPrincipal;
 
 /**
  *
@@ -90,21 +91,33 @@ public class Cpu {
             else{
                 System.out.println("FeedBack");
 
-                if (processoAtual.getService_time_restante() > 0 && getTempoExecutando() < Escalonadores.getQuantum()){
-                    System.out.println("TEMPO ATUAL" + getTempoExecutando());
-                    processoAtual.setService_time_restante(processoAtual.getService_time_restante() - 1);
+                if ((processoAtual.getService_time_restante() > 0) && (getTempoExecutando() < Escalonadores.getQuantum())){
+                    
+                    processoAtual.setService_time_restante((processoAtual.getService_time_restante() - 1));
                     
                     setTempoExecutando(getTempoExecutando() + 1);
-                                       
+                    
+                    JOptionPane.showMessageDialog(null, "Processo c/ ID: " + processoAtual.getID() + " executando a " + getTempoExecutando() + " ciclos");
+                    
                 }
                 
-                else if (processoAtual.getService_time_restante() > 0){
+                if (processoAtual.getService_time_restante() == 0){
+                    
+                    JOptionPane.showMessageDialog(null, "Processo c/ ID: " + processoAtual.getID() + " foi finalizado!");
+                    
+                    this.liberaCPU();
+                    
+                }
+                
+                else if ((processoAtual.getService_time_restante() > 0) && ( getTempoExecutando() == Escalonadores.getQuantum() )){
                     setTempoExecutando(0);
                     ArrayList<Processos> fila2_aux = Escalonadores.getFila2();
                     ArrayList<Processos> fila3_aux = Escalonadores.getFila3();
 
                     switch (getFilaAtual()) {
+                        
                         case 1:
+                            
                             fila2_aux.add(processoAtual);
                             Escalonadores.setFila2(fila2_aux);
                             break;
@@ -117,12 +130,16 @@ public class Cpu {
                             Escalonadores.setFila3(fila3_aux);
                             break;
                         default:
+                            JOptionPane.showMessageDialog(null, "oláaaa");
                             break;
+                        
+                            
                     }      
                     this.liberaCPU();
                 }
             }
         }
+               
     }
 
     // Libera a CPU para ser usada por outro processo    
@@ -134,4 +151,6 @@ public class Cpu {
     public boolean estaLivre() {
         return this.processoAtual == null;
     }
+       
+    
 }

@@ -25,12 +25,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private ArrayList<Processos> lista;    
     
     public TelaPrincipal() {
-        initComponents(); 
-        ajustes.AjustarJanelas tela = new AjustarJanelas();
-        tela.ajustarJanelas(this);
-        func = new FuncoesTelaPrincipal();
+        initComponents();         
+        func = new FuncoesTelaPrincipal(); 
         tempoAtual = -1;
-
         lista = func.getArrayList();
         atualizaTelaPrincipal();
 
@@ -85,7 +82,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     //SETTERS DOS LABLES
     
-    
     public static void setLblCpus(String texto, int id){
     
         if (id == 0)
@@ -125,11 +121,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     public void atualizaTelaPrincipal(){
+        
         incrementaTempoAtual();
         func.atualizaListaDeChegada(lista, getTempoAtual());
-        func.getEscalonador().escalonar();      
+        func.getEscalonador().escalonar();
+        func.atualizarListasLBL();
         setLblTempoAtual(getTempoAtual());
         setLblMemoriaUsada(func.getMemoriaUtilizada());
+        
     }
     
     
