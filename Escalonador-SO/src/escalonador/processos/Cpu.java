@@ -71,9 +71,7 @@ public class Cpu {
         
             //ESCALONADOR FCFS //NÃO PREEMPTIVO
             if (escalonador_control == 0){
-                
-                System.out.println("FCFS");
-                
+                               
                 if (processoAtual.getService_time_restante() > 0){
                     
                     processoAtual.setService_time_restante(processoAtual.getService_time_restante() - 1);
@@ -81,7 +79,7 @@ public class Cpu {
                 else {
                     
                     setFimProcessamento(true);
-                    JOptionPane.showMessageDialog(null, "Processo com ID: " + processoAtual.getID() + " foi finalizado!");
+                    TelaPrincipal.setLblLog("● Processo com ID " + processoAtual.getID() + " foi finalizado." );
                     this.liberaCPU();
                 
                 }
@@ -89,7 +87,6 @@ public class Cpu {
             }
             //FEEDBACK
             else{
-                System.out.println("FeedBack");
 
                 if ((processoAtual.getService_time_restante() > 0) && (getTempoExecutando() < Escalonadores.getQuantum())){
                     
@@ -97,14 +94,12 @@ public class Cpu {
                     
                     setTempoExecutando(getTempoExecutando() + 1);
                     
-                    JOptionPane.showMessageDialog(null, "Processo c/ ID: " + processoAtual.getID() + " executando a " + getTempoExecutando() + " ciclos");
-                    
                 }
                 
                 if (processoAtual.getService_time_restante() == 0){
                     
-                    JOptionPane.showMessageDialog(null, "Processo c/ ID: " + processoAtual.getID() + " foi finalizado!");
-                    
+                    TelaPrincipal.setLblLog("● Processo com ID " + processoAtual.getID() + " foi finalizado." );
+
                     this.liberaCPU();
                     
                 }
@@ -117,20 +112,23 @@ public class Cpu {
                     switch (getFilaAtual()) {
                         
                         case 1:
-                            
                             fila2_aux.add(processoAtual);
                             Escalonadores.setFila2(fila2_aux);
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 2." );
                             break;
                         case 2:
                             fila3_aux.add(processoAtual);
                             Escalonadores.setFila3(fila3_aux);
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 3." );
+
                             break;
                         case 3:
                             fila3_aux.add(processoAtual);
                             Escalonadores.setFila3(fila3_aux);
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 3." );
+
                             break;
                         default:
-                            JOptionPane.showMessageDialog(null, "oláaaa");
                             break;
                         
                             

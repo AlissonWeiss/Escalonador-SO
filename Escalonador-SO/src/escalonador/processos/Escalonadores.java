@@ -204,6 +204,7 @@ public class Escalonadores {
         cpu.setFimProcessamento(false);
         cpu.setProcessoAtual(fila0.get(0));
         fila0.remove(fila0.get(0));
+        TelaPrincipal.setLblLog("• Processo com ID " + cpu.getProcessoAtual().getID() + " sendo executado no processador " + qualCpu(cpu) + " com política FCFS.");
                 
     }
     
@@ -237,6 +238,9 @@ public class Escalonadores {
                 cpu.setFilaAtual(3);
 
             }
+            
+            TelaPrincipal.setLblLog("• Processo com ID " + cpu.getProcessoAtual().getID() + " sendo executado no processador " + qualCpu(cpu)+ " com política Feedback.");
+
             cpu.setTempoExecutando(0);
         }
     }

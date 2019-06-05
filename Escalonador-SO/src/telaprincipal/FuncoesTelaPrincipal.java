@@ -10,6 +10,7 @@ import escalonador.processos.Escalonadores;
 import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
+import static telaprincipal.TelaPrincipal.setLblLog;
 
 /**
  *
@@ -47,6 +48,8 @@ public class FuncoesTelaPrincipal {
         cpu3 = new Cpu();
         
         escalonador = new Escalonadores(fila0, fila1, fila2, fila3, cpu0, cpu1, cpu2, cpu3);
+        TelaPrincipal.setLblLog("Escalonador Inicializado!");
+
         
     }
     
@@ -88,15 +91,19 @@ public class FuncoesTelaPrincipal {
             
                 case 0:
                     fila0.add(processo);
+                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 0.");
                     break;
                 case 1:
                     fila1.add(processo);
+                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 1.");
                     break;
                 case 2:
-                    fila1.add(processo);
+                    fila1.add(processo);                    
+                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 1.");
                     break;
                 case 3:
                     fila1.add(processo);
+                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 1.");
                     break;
                 default:
                     break;                       
