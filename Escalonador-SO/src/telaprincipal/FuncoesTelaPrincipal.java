@@ -10,7 +10,6 @@ import escalonador.processos.Escalonadores;
 import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
-import static telaprincipal.TelaPrincipal.setLblLog;
 
 /**
  *
@@ -76,14 +75,7 @@ public class FuncoesTelaPrincipal {
         
         return lista;
         
-    }
-    
-    public void incrementarMemoriaUsada(int memoria){
-        
-        setMemoriaUtilizada(getMemoriaUtilizada() + memoria);
-        
-    }
-    
+    }   
     
     public void colocarNaFilaDePrioridade(Processos processo){
         
@@ -91,25 +83,68 @@ public class FuncoesTelaPrincipal {
             
                 case 0:
                     fila0.add(processo);
-                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 0.");
+                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 0.");
                     break;
                 case 1:
                     fila1.add(processo);
-                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 1.");
+                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
                     break;
                 case 2:
                     fila1.add(processo);                    
-                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 1.");
+                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
                     break;
                 case 3:
                     fila1.add(processo);
-                    TelaPrincipal.setLblLog("-> Processo com id " + processo.getID() + " adicionado a fila 1.");
+                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
                     break;
                 default:
                     break;                       
         }
                 
     }
+    
+    public void calcularMemoriaUtilizada(){
+        
+        int aux_memoria = 0;
+        
+        if (!cpu0.estaLivre()) aux_memoria += cpu0.getProcessoAtual().getTamanho();
+
+        if (!cpu1.estaLivre()) aux_memoria += cpu1.getProcessoAtual().getTamanho();
+
+        if (!cpu2.estaLivre()) aux_memoria += cpu2.getProcessoAtual().getTamanho();
+
+        if (!cpu3.estaLivre()) aux_memoria += cpu3.getProcessoAtual().getTamanho();
+
+        if (!fila0.isEmpty()){
+            for (Processos processo : fila0){
+                aux_memoria += processo.getTamanho();
+            }
+        }
+        
+        
+        if (!fila1.isEmpty()){
+            for (Processos processo : fila1){
+                aux_memoria += processo.getTamanho();
+            }
+        }
+        
+        if (!fila2.isEmpty()){
+            for (Processos processo : fila2){
+                aux_memoria += processo.getTamanho();
+            }
+        }
+        
+        
+        if (!fila3.isEmpty()){
+            for (Processos processo : fila3){
+                aux_memoria += processo.getTamanho();
+            }
+        }
+        
+        setMemoriaUtilizada(aux_memoria);
+        
+    }
+    
     
     public String concatenar_fila(ArrayList<Processos> lista){
             
@@ -129,7 +164,6 @@ public class FuncoesTelaPrincipal {
             
     }
     
-    
     public void atualizarListasLBL(){
         TelaPrincipal.setFila0(concatenar_fila(fila0));
         TelaPrincipal.setFila1(concatenar_fila(fila1));
@@ -144,7 +178,6 @@ public class FuncoesTelaPrincipal {
             if (i.getArrival_time() == tempoAtual){
                 
                 colocarNaFilaDePrioridade(i);
-                incrementarMemoriaUsada(i.getTamanho());
 
             }  
         }

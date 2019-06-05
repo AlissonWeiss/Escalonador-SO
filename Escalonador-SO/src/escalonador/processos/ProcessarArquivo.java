@@ -222,9 +222,7 @@ public class ProcessarArquivo {
             aux = (Processos)lista.get(i);
             lista_txt = lista_txt.concat(Integer.toString(aux.getID()) + " - ");
         }
-         
-        System.out.println("LISTA: "+lista_txt);
-        
+                 
         return lista_txt;
         
     }

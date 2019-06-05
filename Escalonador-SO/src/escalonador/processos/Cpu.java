@@ -1,7 +1,6 @@
 package escalonador.processos;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import telaprincipal.TelaPrincipal;
 
 /**
@@ -99,13 +98,14 @@ public class Cpu {
                 if (processoAtual.getService_time_restante() == 0){
                     
                     TelaPrincipal.setLblLog("● Processo com ID " + processoAtual.getID() + " foi finalizado." );
-
+                    
                     this.liberaCPU();
                     
                 }
                 
                 else if ((processoAtual.getService_time_restante() > 0) && ( getTempoExecutando() == Escalonadores.getQuantum() )){
                     setTempoExecutando(0);
+                    ArrayList<Processos> fila1_aux = Escalonadores.getFila1();
                     ArrayList<Processos> fila2_aux = Escalonadores.getFila2();
                     ArrayList<Processos> fila3_aux = Escalonadores.getFila3();
 
@@ -123,9 +123,9 @@ public class Cpu {
 
                             break;
                         case 3:
-                            fila3_aux.add(processoAtual);
-                            Escalonadores.setFila3(fila3_aux);
-                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 3." );
+                            fila1_aux.add(processoAtual);
+                            Escalonadores.setFila1(fila1_aux);
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 1." );
 
                             break;
                         default:
