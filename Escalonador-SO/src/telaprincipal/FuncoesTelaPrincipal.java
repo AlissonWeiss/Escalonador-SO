@@ -176,8 +176,10 @@ public class FuncoesTelaPrincipal {
     }
     
     void calcularMemoriaLivre(){
-        
+        calcularMemoriaUtilizada();
+
         setMemoriaLivre(getMemoriaPrincipal() - getMemoriaUtilizada());
+        
         TelaPrincipal.setLblMemoriaLivre(Integer.toString(getMemoriaLivre()));
         
     }
@@ -290,7 +292,7 @@ public class FuncoesTelaPrincipal {
         ArrayList<Processos> aux = new ArrayList<>();
         
         for (Processos i: lista){
-            
+            calcularMemoriaLivre();
             if (i.getArrival_time() <= tempoAtual){
                 
                 if (i.getImpressora() == 0 && i.getDisco() == 0){
