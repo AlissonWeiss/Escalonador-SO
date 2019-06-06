@@ -19,6 +19,7 @@ public class Escalonadores {
     private static ArrayList<Processos> fila1;
     private static ArrayList<Processos> fila2;
     private static ArrayList<Processos> fila3;
+    private static ArrayList<Processos> fila_pronto_suspenso;
     private Cpu cpu0;
     private Cpu cpu1;
     private Cpu cpu2;
@@ -59,13 +60,15 @@ public class Escalonadores {
     public static void setFila1(ArrayList<Processos> fila1){
         Escalonadores.fila1 = fila1;
     }
-    public static void setFila2(ArrayList<Processos> fila1){
-        Escalonadores.fila2 = fila1;
+    public static void setFila2(ArrayList<Processos> fila2){
+        Escalonadores.fila2 = fila2;
     }
-    public static void setFila3(ArrayList<Processos> fila1){
-        Escalonadores.fila3 = fila1;
+    public static void setFila3(ArrayList<Processos> fila3){
+        Escalonadores.fila3 = fila3;
     }
-            
+    public static void setFilaProntoSuspenso(ArrayList<Processos> fila_pronto_suspenso){
+        Escalonadores.fila_pronto_suspenso = fila_pronto_suspenso;
+    }            
     public static ArrayList<Processos> getFila1(){
         return fila1;
     }    
@@ -74,6 +77,9 @@ public class Escalonadores {
     }    
     public static ArrayList<Processos> getFila3(){
         return fila3;
+    }
+    public static ArrayList<Processos> getFilaProntoSuspenso(){
+        return fila_pronto_suspenso;
     }    
     
     

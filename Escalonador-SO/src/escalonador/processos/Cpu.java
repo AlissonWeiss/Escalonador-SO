@@ -97,6 +97,14 @@ public class Cpu {
                 
                 if (processoAtual.getService_time_restante() == 0){
                     
+                    if (processoAtual.getImpressora() != 0)
+                        TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() - processoAtual.getImpressora());
+                    
+                    
+                    if (processoAtual.getDisco() != 0)
+                        TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() - processoAtual.getDisco());
+                    
+                    
                     TelaPrincipal.setLblLog("● Processo com ID " + processoAtual.getID() + " foi finalizado." );
                     
                     this.liberaCPU();
