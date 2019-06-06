@@ -109,6 +109,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     //SETTERS DOS LABLES
     
+    public static void setFilaProntoSuspenso(String texto){
+        
+        lbl_fila_pronto_suspenso.setText(texto);
+        
+    }
+    
+    
     public static void setLblCpus(String texto, int id){
     
         if (id == 0)
@@ -209,9 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         title_fila3 = new javax.swing.JLabel();
         lbl_fila3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         lbl_fila_pronto_suspenso = new javax.swing.JLabel();
-        lbl_fila_espera = new javax.swing.JLabel();
         pnl_log = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lbl_log = new javax.swing.JTextArea();
@@ -337,16 +342,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel9.setText("Fila Pronto Suspenso: ");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
-        jLabel10.setText("Fila de Espera: ");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
-
         lbl_fila_pronto_suspenso.setText("Fila Pronto Suspenso");
         jPanel4.add(lbl_fila_pronto_suspenso, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
 
-        lbl_fila_espera.setText("Fila de Espera");
-        jPanel4.add(lbl_fila_espera, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 1251, 290));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 1251, 260));
 
         pnl_log.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "LOG DO SISTEMA"));
         pnl_log.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -420,7 +419,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_avancar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -439,8 +437,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private static javax.swing.JLabel lbl_fila1;
     private static javax.swing.JLabel lbl_fila2;
     private static javax.swing.JLabel lbl_fila3;
-    private javax.swing.JLabel lbl_fila_espera;
-    private javax.swing.JLabel lbl_fila_pronto_suspenso;
+    private static javax.swing.JLabel lbl_fila_pronto_suspenso;
     private static javax.swing.JLabel lbl_impressoras;
     private static javax.swing.JTextArea lbl_log;
     private static javax.swing.JLabel lbl_mem_disponivel;

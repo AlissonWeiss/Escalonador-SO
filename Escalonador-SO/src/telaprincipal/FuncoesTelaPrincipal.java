@@ -43,7 +43,8 @@ public class FuncoesTelaPrincipal {
         fila0 = new ArrayList<>();
         fila1 = new ArrayList<>();
         fila2 = new ArrayList<>();
-        fila3 = new ArrayList<>();  
+        fila3 = new ArrayList<>();
+        fila_pronto_suspenso = new ArrayList<>();
         
         cpu0 = new Cpu();
         cpu1 = new Cpu();
@@ -52,7 +53,6 @@ public class FuncoesTelaPrincipal {
         
         escalonador = new Escalonadores(fila0, fila1, fila2, fila3, cpu0, cpu1, cpu2, cpu3);
         TelaPrincipal.setLblLog("Escalonador Inicializado!");
-
         
     }
     
@@ -91,32 +91,87 @@ public class FuncoesTelaPrincipal {
         
     }   
        
+    public void removerProcessoPorTamanho(){
+        
+        int maior = 0;
+        Processos processo_aux = null;
+        int qualFila = 0;
+        
+        if (!fila3.isEmpty()){
+            
+            for (Processos processo : fila3){
+                if (processo.getTamanho() > maior){
+                    maior = processo.getTamanho();
+                    processo_aux = processo;
+                    qualFila = 3;
+                }
+            }
+            fila3.remove(processo_aux);
+            fila_pronto_suspenso.add(processo_aux);
+        }
+        else if (!fila2.isEmpty()){
+            
+            for (Processos processo : fila2){
+                if (processo.getTamanho() > maior){
+                    maior = processo.getTamanho();
+                    processo_aux = processo;
+                    qualFila = 2;
+                }
+            }
+            fila2.remove(processo_aux);
+            fila_pronto_suspenso.add(processo_aux);
+            
+        }
+        else if (!fila1.isEmpty()){
+            
+            for (Processos processo : fila1){
+                if (processo.getTamanho() > maior){
+                    maior = processo.getTamanho();
+                    processo_aux = processo;
+                    qualFila = 1;
+                }
+            }
+            fila1.remove(processo_aux);
+            fila_pronto_suspenso.add(processo_aux);
+
+        }
+        if (processo_aux != null)
+            TelaPrincipal.setLblLog(">> Processo com ID " + processo_aux.getID() + " desalocado e adicionado na fila de Pronto Suspenso.");
+
+                
+    }
+    
     
     //METODOS
     public void colocarNaFilaDePrioridade(Processos processo){
         
-        
-        
-        switch(processo.getPriority()){
-            
-                case 0:
-                    fila0.add(processo);
-                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 0.");
-                    break;
-                case 1:
-                    fila1.add(processo);
-                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
-                    break;
-                case 2:
-                    fila1.add(processo);                    
-                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
-                    break;
-                case 3:
-                    fila1.add(processo);
-                    TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
-                    break;
-                default:
-                    break;                       
+        if (processo.getTamanho() <= getMemoriaLivre()){
+
+            switch(processo.getPriority()){
+
+                    case 0:
+                        fila0.add(processo);
+                        TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 0.");
+                        break;
+                    case 1:
+                        fila1.add(processo);
+                        TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
+                        break;
+                    case 2:
+                        fila1.add(processo);                    
+                        TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
+                        break;
+                    case 3:
+                        fila1.add(processo);
+                        TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
+                        break;
+                    default:
+                        break;                       
+            }
+        }
+        //CASO CONTRARIO, SE PROCESSO PRIORIDADE = 0, DEVE REMOVER ALGUEM
+        else if (processo.getPriority() == 0){
+            removerProcessoPorTamanho();
         }
                 
     }
@@ -176,15 +231,17 @@ public class FuncoesTelaPrincipal {
         String texto = "ID: ";
         String aux;
         
-        for (int i = 0; i < lista.size(); i++){
-            
-            
-            aux = Integer.toString(lista.get(i).getID());
-            
-            texto = texto.concat(" - " + aux);
-            
+        if (!lista.isEmpty()){
+
+            for (int i = 0; i < lista.size(); i++){
+
+
+                aux = Integer.toString(lista.get(i).getID());
+
+                texto = texto.concat(" - " + aux);
+
+            }
         }
-        
         return texto;
             
     }
@@ -194,6 +251,7 @@ public class FuncoesTelaPrincipal {
         TelaPrincipal.setFila1(concatenar_fila(fila1));
         TelaPrincipal.setFila2(concatenar_fila(fila2));
         TelaPrincipal.setFila3(concatenar_fila(fila3));
+        TelaPrincipal.setFilaProntoSuspenso(concatenar_fila(fila_pronto_suspenso));
     }
     
     public void setLblDiscosEimpressoras(){
@@ -215,7 +273,35 @@ public class FuncoesTelaPrincipal {
                 if (i.getImpressora() == 0 && i.getDisco() == 0){
                     
                     colocarNaFilaDePrioridade(i);
-                    aux.add(i);
+                    
+                    for (Processos processo : fila0){
+                        
+                        if (processo == i){
+                            aux.add(i);
+                        }
+                        
+                    }
+                    for (Processos processo : fila1){
+                        
+                        if (processo == i){
+                            aux.add(i);
+                        }
+                        
+                    }
+                    for (Processos processo : fila2){
+                        
+                        if (processo == i){
+                            aux.add(i);
+                        }
+                        
+                    }
+                    for (Processos processo : fila3){
+                        
+                        if (processo == i){
+                            aux.add(i);
+                        }
+                        
+                    }
                     
                 }
                 
@@ -283,45 +369,6 @@ public class FuncoesTelaPrincipal {
                     
                 }
                 
-                
-                
-                
-//                if (TelaPrincipal.getContImpressora() < 2 && i.getImpressora() == 1){
-//                    TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
-//                    JOptionPane.showMessageDialog(null, TelaPrincipal.getContImpressora());
-//                    colocarNaFilaDePrioridade(i);
-//                    aux.add(i);
-//                }
-//                else if (TelaPrincipal.getContImpressora() == 0 && i.getImpressora() == 2){
-//                    TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
-//                    colocarNaFilaDePrioridade(i);
-//                    aux.add(i);
-//                }
-//                else if (i.getImpressora() == 0){
-//                    
-//                    colocarNaFilaDePrioridade(i);
-//                    aux.add(i);
-//                }
-//                
-                
-                
-                
-                
-//                if (TelaPrincipal.getContDisco()< 2 && i.getDisco()== 1){
-//                    TelaPrincipal.setContDisco(TelaPrincipal.getContDisco()+ i.getDisco());
-//                    colocarNaFilaDePrioridade(i);
-//                    aux.add(i);
-//                }
-//                else if (TelaPrincipal.getContDisco()== 0 && i.getDisco() == 2){
-//                    TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
-//                    colocarNaFilaDePrioridade(i);
-//                    aux.add(i);
-//                }
-//                else if (i.getDisco() == 0){
-//                    colocarNaFilaDePrioridade(i);
-//                    aux.add(i);
-//                }
-//                
             }  
         }
         
