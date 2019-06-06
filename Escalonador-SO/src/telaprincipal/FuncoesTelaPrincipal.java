@@ -262,6 +262,30 @@ public class FuncoesTelaPrincipal {
     }
     
     
+    public boolean checarSeAdicionou(Processos processo){
+        
+        for (Processos aux : fila0){
+            if (aux == processo)
+                return true;
+        }  
+        for (Processos aux : fila1){
+            if (aux == processo)
+                return true;
+        }
+        for (Processos aux : fila2){
+            if (aux == processo)
+                return true;
+        }
+        for (Processos aux : fila3){
+            if (aux == processo)
+                return true;
+        }
+        
+        return false;
+        
+    }
+    
+    
     public void atualizaListaDeChegada(ArrayList<Processos> lista, int tempoAtual){
         
         ArrayList<Processos> aux = new ArrayList<>();
@@ -273,35 +297,9 @@ public class FuncoesTelaPrincipal {
                 if (i.getImpressora() == 0 && i.getDisco() == 0){
                     
                     colocarNaFilaDePrioridade(i);
-                    
-                    for (Processos processo : fila0){
-                        
-                        if (processo == i){
-                            aux.add(i);
-                        }
-                        
-                    }
-                    for (Processos processo : fila1){
-                        
-                        if (processo == i){
-                            aux.add(i);
-                        }
-                        
-                    }
-                    for (Processos processo : fila2){
-                        
-                        if (processo == i){
-                            aux.add(i);
-                        }
-                        
-                    }
-                    for (Processos processo : fila3){
-                        
-                        if (processo == i){
-                            aux.add(i);
-                        }
-                        
-                    }
+
+                    if (checarSeAdicionou(i))
+                        aux.add(i);
                     
                 }
                 
@@ -310,31 +308,41 @@ public class FuncoesTelaPrincipal {
                     //CASO TESTE COM 2 IMPRESSORAS
                     if (TelaPrincipal.getContImpressora() == 0 && i.getImpressora() == 2){
                         if (TelaPrincipal.getContDisco() == 0 && i.getDisco() == 2){
-                            TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
-                            TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
                             colocarNaFilaDePrioridade(i);
-                            aux.add(i);
+                            if (checarSeAdicionou(i)){
+                                TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
+                                TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+                                aux.add(i);
+                                
+                            }
                         }
                         else if (TelaPrincipal.getContDisco() < 2 && i.getDisco() == 1){
-                            TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
-                            TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
                             colocarNaFilaDePrioridade(i);
-                            aux.add(i);
+                            if (checarSeAdicionou(i)){
+                                TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
+                                TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+                                aux.add(i);
+                            }
                         }
                         
                     }
                     if (TelaPrincipal.getContImpressora() < 2 && i.getImpressora() == 1){
                         if (TelaPrincipal.getContDisco() == 0 && i.getDisco() == 2){
-                            TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
-                            TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
                             colocarNaFilaDePrioridade(i);
-                            aux.add(i);
+                            if (checarSeAdicionou(i)){
+                                TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
+                                TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+                                aux.add(i);
+                            }
                         }
                         else if (TelaPrincipal.getContDisco() < 2 && i.getDisco() == 1){
-                            TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
-                            TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+
                             colocarNaFilaDePrioridade(i);
-                            aux.add(i);                  
+                            if (checarSeAdicionou(i)){
+                                TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
+                                TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+                                aux.add(i);           
+                            }
                         }
                     }
                 }
@@ -342,29 +350,36 @@ public class FuncoesTelaPrincipal {
                 else if (i.getImpressora() != 0){
                     
                     if (TelaPrincipal.getContImpressora() == 0 && i.getImpressora() == 2){
-                        TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
                         colocarNaFilaDePrioridade(i);
-                        aux.add(i);
+                        if (checarSeAdicionou(i)){
+                            TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
+                            aux.add(i);
+                        }
                     }
                     else if (TelaPrincipal.getContImpressora() < 2 && i.getImpressora() == 1){
-                        TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
                         colocarNaFilaDePrioridade(i);
-                        aux.add(i);
+                        if (checarSeAdicionou(i)){
+                            TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
+                            aux.add(i);
+                        }
                     }
-                      
                     
                 }
                 else if (i.getDisco() != 0){
                     
                     if (TelaPrincipal.getContDisco() == 0 && i.getDisco() == 2){
-                        TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
                         colocarNaFilaDePrioridade(i);
-                        aux.add(i);
+                        if (checarSeAdicionou(i)){
+                            TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+                            aux.add(i);
+                        }
                     }
                     else if (TelaPrincipal.getContDisco() < 2 && i.getDisco() == 1){
-                        TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
                         colocarNaFilaDePrioridade(i);
-                        aux.add(i);
+                        if (checarSeAdicionou(i)){
+                            TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
+                            aux.add(i);
+                        }
                     }
                     
                 }
