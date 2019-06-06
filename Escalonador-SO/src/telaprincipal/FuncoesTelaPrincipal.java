@@ -51,7 +51,7 @@ public class FuncoesTelaPrincipal {
         cpu2 = new Cpu();
         cpu3 = new Cpu();
         
-        escalonador = new Escalonadores(fila0, fila1, fila2, fila3, cpu0, cpu1, cpu2, cpu3);
+        escalonador = new Escalonadores(fila0, fila1, fila2, fila3,fila_pronto_suspenso, cpu0, cpu1, cpu2, cpu3);
         TelaPrincipal.setLblLog("Escalonador Inicializado!");
         
     }
@@ -135,12 +135,11 @@ public class FuncoesTelaPrincipal {
             fila_pronto_suspenso.add(processo_aux);
 
         }
-        if (processo_aux != null)
+        if (processo_aux != null){
             TelaPrincipal.setLblLog(">> Processo com ID " + processo_aux.getID() + " desalocado e adicionado na fila de Pronto Suspenso.");
-
+        }
                 
     }
-    
     
     //METODOS
     public void colocarNaFilaDePrioridade(Processos processo){

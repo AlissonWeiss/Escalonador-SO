@@ -8,7 +8,6 @@ package telaprincipal;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author aliss

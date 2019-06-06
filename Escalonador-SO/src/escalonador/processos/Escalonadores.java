@@ -33,12 +33,13 @@ public class Escalonadores {
         
     }
     
-    public Escalonadores(ArrayList<Processos> fila0, ArrayList<Processos> fila1, ArrayList<Processos> fila2, ArrayList<Processos> fila3, Cpu cpu0, Cpu cpu1, Cpu cpu2, Cpu cpu3){
+    public Escalonadores(ArrayList<Processos> fila0, ArrayList<Processos> fila1, ArrayList<Processos> fila2, ArrayList<Processos> fila3, ArrayList<Processos> filaProntoSuspenso, Cpu cpu0, Cpu cpu1, Cpu cpu2, Cpu cpu3){
         
         Escalonadores.fila0 = fila0;
         Escalonadores.fila1 = fila1;
         Escalonadores.fila2 = fila2;
         Escalonadores.fila3 = fila3;
+        Escalonadores.fila_pronto_suspenso = filaProntoSuspenso;
         
         this.cpu0 = cpu0;
         this.cpu1 = cpu1;
@@ -221,7 +222,15 @@ public class Escalonadores {
             
             cpu.setFimProcessamento(false);
 
-            if (!fila1.isEmpty()){
+            if (!fila_pronto_suspenso.isEmpty()){
+                
+                cpu.setProcessoAtual(fila_pronto_suspenso.get(0));
+                fila_pronto_suspenso.remove(fila_pronto_suspenso.get(0));
+                cpu.setFilaAtual(1);
+                
+            }
+            
+            else if (!fila1.isEmpty()){
 
                 cpu.setProcessoAtual(fila1.get(0));
                 fila1.remove(fila1.get(0));
