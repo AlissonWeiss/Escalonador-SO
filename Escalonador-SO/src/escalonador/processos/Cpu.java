@@ -122,18 +122,18 @@ public class Cpu {
                         case 1:
                             fila2_aux.add(processoAtual);
                             Escalonadores.setFila2(fila2_aux);
-                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 2." );
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 2 devido ao quantum." );
                             break;
                         case 2:
                             fila3_aux.add(processoAtual);
                             Escalonadores.setFila3(fila3_aux);
-                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 3." );
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 3 devido ao quantum." );
 
                             break;
                         case 3:
                             fila1_aux.add(processoAtual);
                             Escalonadores.setFila1(fila1_aux);
-                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 1." );
+                            TelaPrincipal.setLblLog("• Processo com ID " + processoAtual.getID() + " removido do processador e adicionado ao final da fila 1 devido ao quantum." );
 
                             break;
                         default:
