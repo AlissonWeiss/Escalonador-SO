@@ -29,6 +29,7 @@ public class FuncoesTelaPrincipal {
     private final int memoriaPrincipal = 16384; //EM MB
     private int memoriaUtilizada = 0; //EM MB
     private int memoriaLivre = memoriaPrincipal; //EM MB
+    private boolean controle_remocao = false;
     
     private Cpu cpu0;
     private Cpu cpu1;
@@ -57,6 +58,13 @@ public class FuncoesTelaPrincipal {
     }
     
     //GETTERS & SETTERS
+    
+    public boolean getControleRemocao(){
+        return controle_remocao;
+    }
+    public void setControleRemocao(boolean controle_remocao){
+        this.controle_remocao = controle_remocao;
+    }
     
     public Escalonadores getEscalonador(){
         
@@ -135,8 +143,14 @@ public class FuncoesTelaPrincipal {
             fila_pronto_suspenso.add(processo_aux);
 
         }
+        //REMOVEU ALGUEM
         if (processo_aux != null){
             TelaPrincipal.setLblLog(">> Processo com ID " + processo_aux.getID() + " desalocado e adicionado na fila de Pronto Suspenso.");
+            setControleRemocao(true);
+        }
+        //NÃO REMOVEU NINGUÉM
+        else{
+            setControleRemocao(false);
         }
                 
     }
@@ -145,7 +159,8 @@ public class FuncoesTelaPrincipal {
     public void colocarNaFilaDePrioridade(Processos processo){
         
         if (processo.getTamanho() <= getMemoriaLivre()){
-
+            
+            JOptionPane.showMessageDialog(null,"Proc: " + processo.getID() + " mem: " + processo.getTamanho() + " mem: "+ getMemoriaLivre() );
             switch(processo.getPriority()){
 
                     case 0:
@@ -165,17 +180,22 @@ public class FuncoesTelaPrincipal {
                         TelaPrincipal.setLblLog("-> Processo com ID " + processo.getID() + " adicionado a fila 1.");
                         break;
                     default:
-                        break;                       
+                        break;             
             }
         }
         //CASO CONTRARIO, SE PROCESSO PRIORIDADE = 0, DEVE REMOVER ALGUEM
         else if (processo.getPriority() == 0){
             removerProcessoPorTamanho();
+            calcularMemoriaLivre();
+            if (getControleRemocao() == true){
+                colocarNaFilaDePrioridade(processo);
+                setControleRemocao(false);
+            }
         }
                 
     }
     
-    void calcularMemoriaLivre(){
+    public void calcularMemoriaLivre(){
         calcularMemoriaUtilizada();
 
         setMemoriaLivre(getMemoriaPrincipal() - getMemoriaUtilizada());
@@ -201,7 +221,6 @@ public class FuncoesTelaPrincipal {
                 aux_memoria += processo.getTamanho();
             }
         }
-        
         
         if (!fila1.isEmpty()){
             for (Processos processo : fila1){
@@ -288,24 +307,56 @@ public class FuncoesTelaPrincipal {
     
     
     public void atualizaListaDeChegada(ArrayList<Processos> lista, int tempoAtual){
+                
+        boolean control = false;
+        
+        
+        for (Processos i : lista){
+            
+            if (i.getArrival_time() <= tempoAtual){
+             
+                if (i.getPriority() == 0){
+                    control = true;
+                }
+            }
+        }
+     
+        if (control){
+        
+            controlaListaChegada(lista, tempoAtual);
+            
+        }
+        else{
+            controlaListaChegada(fila_pronto_suspenso, tempoAtual);
+        }
+        
+        
+        atualizarListasLBL();
+     
+    }
+    
+    
+    public void controlaListaChegada(ArrayList<Processos> lista, int tempoAtual){
         
         ArrayList<Processos> aux = new ArrayList<>();
         
         for (Processos i: lista){
             calcularMemoriaLivre();
             if (i.getArrival_time() <= tempoAtual){
-                
+
+                calcularMemoriaLivre();
+
                 if (i.getImpressora() == 0 && i.getDisco() == 0){
-                    
+
                     colocarNaFilaDePrioridade(i);
 
                     if (checarSeAdicionou(i))
                         aux.add(i);
-                    
+
                 }
-                
+
                 else if (i.getImpressora() != 0 && i.getDisco() != 0){
-                    
+
                     //CASO TESTE COM 2 IMPRESSORAS
                     if (TelaPrincipal.getContImpressora() == 0 && i.getImpressora() == 2){
                         if (TelaPrincipal.getContDisco() == 0 && i.getDisco() == 2){
@@ -314,7 +365,7 @@ public class FuncoesTelaPrincipal {
                                 TelaPrincipal.setContImpressora(TelaPrincipal.getContImpressora() + i.getImpressora());
                                 TelaPrincipal.setContDisco(TelaPrincipal.getContDisco() + i.getDisco());
                                 aux.add(i);
-                                
+
                             }
                         }
                         else if (TelaPrincipal.getContDisco() < 2 && i.getDisco() == 1){
@@ -325,7 +376,7 @@ public class FuncoesTelaPrincipal {
                                 aux.add(i);
                             }
                         }
-                        
+
                     }
                     if (TelaPrincipal.getContImpressora() < 2 && i.getImpressora() == 1){
                         if (TelaPrincipal.getContDisco() == 0 && i.getDisco() == 2){
@@ -347,9 +398,9 @@ public class FuncoesTelaPrincipal {
                         }
                     }
                 }
-                
+
                 else if (i.getImpressora() != 0){
-                    
+
                     if (TelaPrincipal.getContImpressora() == 0 && i.getImpressora() == 2){
                         colocarNaFilaDePrioridade(i);
                         if (checarSeAdicionou(i)){
@@ -364,10 +415,10 @@ public class FuncoesTelaPrincipal {
                             aux.add(i);
                         }
                     }
-                    
+
                 }
                 else if (i.getDisco() != 0){
-                    
+
                     if (TelaPrincipal.getContDisco() == 0 && i.getDisco() == 2){
                         colocarNaFilaDePrioridade(i);
                         if (checarSeAdicionou(i)){
@@ -382,20 +433,19 @@ public class FuncoesTelaPrincipal {
                             aux.add(i);
                         }
                     }
-                    
+
                 }
-                
+
             }  
+
+            calcularMemoriaLivre();
+
         }
         
         for (Processos i: aux){
-            
             lista.remove(i);
-            
         }
         
-        atualizarListasLBL();
-     
     }
-
+    
 }
