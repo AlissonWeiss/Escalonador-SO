@@ -10,7 +10,6 @@ import escalonador.processos.Escalonadores;
 import escalonador.processos.ProcessarArquivo;
 import escalonador.processos.Processos;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -160,7 +159,6 @@ public class FuncoesTelaPrincipal {
         
         if (processo.getTamanho() <= getMemoriaLivre()){
             
-            JOptionPane.showMessageDialog(null,"Proc: " + processo.getID() + " mem: " + processo.getTamanho() + " mem: "+ getMemoriaLivre() );
             switch(processo.getPriority()){
 
                     case 0:
@@ -311,25 +309,33 @@ public class FuncoesTelaPrincipal {
         boolean control = false;
         
         
-        for (Processos i : lista){
+        if (!fila_pronto_suspenso.isEmpty()){
             
-            if (i.getArrival_time() <= tempoAtual){
+            for (Processos i : lista){
+            
+                if (i.getArrival_time() <= tempoAtual){
              
-                if (i.getPriority() == 0){
-                    control = true;
+                    if (i.getPriority() == 0){
+                        control = true;
+                    }
                 }
             }
-        }
-     
-        if (control){
-        
-            controlaListaChegada(lista, tempoAtual);
             
+            if (control){
+
+                controlaListaChegada(lista, tempoAtual);
+
+            }
+            else{
+                controlaListaChegada(fila_pronto_suspenso, tempoAtual);
+            }
+
         }
         else{
-            controlaListaChegada(fila_pronto_suspenso, tempoAtual);
+            controlaListaChegada(lista, tempoAtual);
         }
-        
+
+
         
         atualizarListasLBL();
      

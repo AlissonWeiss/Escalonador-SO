@@ -161,12 +161,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public static void setLblMemoriaLivre(String texto){
         
-        lbl_mem_disponivel.setText(texto);
+        lbl_mem_disponivel.setText(texto + " MB");
         
     }
     
     private void atualizaTelaPrincipal(){
         
+        
+        setLblLog("\nCiclo: " + (getTempoAtual() + 1));
         incrementaTempoAtual();
         func.atualizaListaDeChegada(lista, getTempoAtual());
         func.getEscalonador().escalonar();
@@ -344,7 +346,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_fila_pronto_suspenso.setText("Fila Pronto Suspenso");
         jPanel4.add(lbl_fila_pronto_suspenso, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 1251, 260));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 1200, 260));
 
         pnl_log.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "LOG DO SISTEMA"));
         pnl_log.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -354,9 +356,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbl_log.setRows(5);
         jScrollPane1.setViewportView(lbl_log);
 
-        pnl_log.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 31, 517, 395));
+        pnl_log.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 31, 600, 410));
 
-        jPanel1.add(pnl_log, new org.netbeans.lib.awtextra.AbsoluteConstraints(1333, 282, -1, -1));
+        jPanel1.add(pnl_log, new org.netbeans.lib.awtextra.AbsoluteConstraints(1239, 282, 640, 460));
 
         jLabel3.setText("Memória Total:   16384 MB");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 240, -1, -1));
