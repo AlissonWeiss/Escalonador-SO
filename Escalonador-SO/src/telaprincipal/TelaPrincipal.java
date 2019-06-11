@@ -34,87 +34,71 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }
     
+    
+    //GETTERS E SETTERS
     public static void setContImpressora(int cont){
         TelaPrincipal.cont_impressora = cont;
     }
+    
     public static void setContDisco(int cont){
         TelaPrincipal.cont_disco = cont;
     }
+    
     public static int getContImpressora(){
         return TelaPrincipal.cont_impressora;
     }
+    
     public static int getContDisco(){
         return TelaPrincipal.cont_disco;
     }
     
-
     public void setLblMemoriaUsada(int memoriaUsada){
-        
         lbl_memoria_utilizada.setText(Integer.toString(memoriaUsada) + " MB");
-        
     }
     
     public void incrementaTempoAtual(){
-        
         this.tempoAtual++;
-        
     }
     
     public int getTempoAtual(){
-        
         return tempoAtual;
-        
     }
     
     public void setLblTempoAtual(int tempoAtual){
-        
         lbl_tempo_atual.setText(Integer.toString(tempoAtual));
-        
     }
     
     public static void setLblImpressora(String texto){
-        
         lbl_impressoras.setText(texto+"/2");
-        
     }
     
     public static void setLblDisco(String texto){
-        
         lbl_discos.setText(texto+"/2");
-        
     }
     
     //SETTERS DAS FILAS
     public static void setFila0(String texto){
-        
         lbl_fila0.setText(texto);
-        
     }
+
     public static void setFila1(String texto){
-        
         lbl_fila1.setText(texto);
-        
     }
+
     public static void setFila2(String texto){
-        
         lbl_fila2.setText(texto);
-        
     }
+
     public static void setFila3(String texto){
-        
         lbl_fila3.setText(texto);
-        
     }
-    
-    //SETTERS DOS LABLES
     
     public static void setFilaProntoSuspenso(String texto){
-        
         lbl_fila_pronto_suspenso.setText(texto);
-        
     }
-    
-    
+        
+    //SETTERS DOS LABLES
+
     public static void setLblCpus(String texto, int id){
     
         if (id == 0)
@@ -129,42 +113,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     public static void setLblLog(String linha){
-        
         lbl_log.setText(lbl_log.getText() + linha + "\n");
-        
     }
     
     
     public static void setLblCpu0(String texto){
-        
         lbl_processador0.setText(texto);
-        
     }
     
     public static void setLblCpu1(String texto){
-        
         lbl_processador1.setText(texto);
-        
     }
     
     public static void setLblCpu2(String texto){
-        
         lbl_processador2.setText(texto);
-        
     }
     
     public static void setLblCpu3(String texto){
-        
         lbl_processador3.setText(texto);
-        
     }
     
     public static void setLblMemoriaLivre(String texto){
-        
         lbl_mem_disponivel.setText(texto + " MB");
-        
     }
     
+    //ATUALIZA TODO O PROGRAMA EM 1 TIME SLICE
     private void atualizaTelaPrincipal(){
         
         

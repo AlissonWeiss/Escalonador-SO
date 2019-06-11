@@ -28,17 +28,16 @@ public class ProcessarArquivo {
     
     private static ArrayList<Processos> lista;
         
+    //GETTERS
     public boolean getAbriu(){
         return this.abriu;
     }
     
-    
     public static ArrayList<Processos> getArrayList(){
-        
         return lista;
-        
     }
     
+    //FUNÇÃO PARA ESCOLHER ARQUIVO DE PROCESSOS
     public String escolherArquivo(){
         
         String caminho = null;
@@ -47,11 +46,13 @@ public class ProcessarArquivo {
         
         JFileChooser arquivo = new JFileChooser(finder);
              
+        //ADICIONA FILTRO PARA APENAS ARQUIVOS COM EXTENSÃO TXT
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivo TXT", "txt");
         arquivo.setAcceptAllFileFilterUsed(false);
         arquivo.addChoosableFileFilter(filtro);
         arquivo.setDialogTitle("Selecione o arquivo de processos");
         
+        //VERIFICA SE O ARQUIVO FOI ABERTO 
         if(arquivo.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
             caminho = arquivo.getSelectedFile().getAbsolutePath();
             JOptionPane.showMessageDialog(null, "Arquivo aberto com sucesso!");
@@ -62,13 +63,16 @@ public class ProcessarArquivo {
         return caminho;
     }
     
+    //FUNÇÃO PARA ABRIR O ARQUIVO
     public void abrirArquivo(String caminho){
       
         
         try {
-              
+            
+            //CRIA UM BUFFER PARA LEITURA
             BufferedReader br = new BufferedReader(new FileReader(caminho));
-                       
+                      
+            //SETA A VARIÁVEL DE CONTROLE
             this.abriu = true;
             
             lista = new ArrayList<>();
@@ -80,9 +84,10 @@ public class ProcessarArquivo {
                 lista = lerEGravarProcessoEmLista(br);
                 
                 
-                //ORDENA ARRAY LIST POR ARRIVAL TIME
+                //ORDENA LISTA POR ARRIVAL TIME
                 lista = ordenarArrayList(lista);
                 
+                //IMPRIME OS PROCESSOS PRESENTES NA LISTA
                 for (int i = 0; i < lista.size(); i++){
                     
                     lista.get(i).imprimirProcesso();
@@ -96,7 +101,9 @@ public class ProcessarArquivo {
             }
             
             
-        } catch (FileNotFoundException e) {
+        } 
+        //CASO OCORRA QUALQUER ERRO NA ABERTURA DO ARQUIVO
+        catch (FileNotFoundException e) {
             
             JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo!", "Erro!", 0);
             
@@ -105,12 +112,12 @@ public class ProcessarArquivo {
                 
     }
     
+    //LÊ O ARQUIVO, ARMAZENA OS DADOS EM UM OBJETO PROCESSOS E ADICIONA-OS A LISTA
     public ArrayList<Processos> lerEGravarProcessoEmLista(BufferedReader file) throws IOException{
                
         
         try {        
-            
-            
+
             //INICIALIZAÇÃO DAS VARIÁVEIS LOCAIS
             int id = 0;
             int arrival_time;
@@ -161,7 +168,7 @@ public class ProcessarArquivo {
                 linha = file.readLine();
             }
             
-            
+            //RETORNA LISTA FINAL
             return lista;   
             
             
@@ -174,6 +181,7 @@ public class ProcessarArquivo {
         
     }
     
+    //ORDENA A LISTA POR ARRIVAL TIME, MELHORANDO O FLUXO POSTERIORMENTE
     public ArrayList<Processos> ordenarArrayList(ArrayList<Processos> lista){
         
         //PEGA O PRIMEIRO ARRIVAL TIME COMO O MENOR
@@ -209,22 +217,8 @@ public class ProcessarArquivo {
             }
 
         }
-        
+        //RETORNA LISTA ORDENADA
         return lista_aux;
-    }
-    
-    public String lista_txt_processos(ArrayList lista){
-        
-        String lista_txt = "";
-        Processos aux;
-        for (int i = 0; i > lista.size(); i++){
-            
-            aux = (Processos)lista.get(i);
-            lista_txt = lista_txt.concat(Integer.toString(aux.getID()) + " - ");
-        }
-                 
-        return lista_txt;
-        
     }
     
 }

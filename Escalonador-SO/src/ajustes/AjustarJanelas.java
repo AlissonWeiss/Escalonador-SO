@@ -18,14 +18,19 @@ public class AjustarJanelas {
     public void ajustarJanelas(javax.swing.JFrame tela){
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
         tela.setTitle("Escalonador de Processos");
         tela.setResizable(true);
         tela.dispose();
+        //INICIALIZA A TELA EM MODO FULLSCREEN
         tela.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //tela.setUndecorated(true);
         //screenSize.setSize((int)(screenSize.getWidth()), (int)screenSize.getHeight() - (screenSize.getHeight() * 0.08));
+        
+        //DEFINE TAMANHO MÁXIMO E MÍNIMO PARA A TELA
         tela.setMaximumSize(screenSize);
         tela.setMinimumSize(screenSize);
+        
         tela.setVisible(true);
        
         

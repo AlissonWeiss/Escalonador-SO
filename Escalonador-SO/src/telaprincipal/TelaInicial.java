@@ -126,6 +126,7 @@ public class TelaInicial extends javax.swing.JFrame {
         ProcessarArquivo arq = new ProcessarArquivo();
         arq.escolherArquivo();
         
+        //VERIFICA SE O ARQUIVO ABRIU, PARA ENTÃO FECHAR ESSA TELA E ABRIR A PRÓXIMA
         if (arq.getAbriu()){
             ajustes.AjustarJanelas tela_ajustes = new AjustarJanelas();
 

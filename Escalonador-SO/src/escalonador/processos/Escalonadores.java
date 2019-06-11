@@ -27,6 +27,7 @@ public class Escalonadores {
     
     private static int quantum;
     
+    //CONSTRUTORES
     public Escalonadores(){
     
         quantum = 2;
@@ -52,11 +53,8 @@ public class Escalonadores {
     
     // GETTERS E SETTERS
     
-    
     public static int getQuantum() {
-        
         return quantum;
-        
     }
     public static void setFila1(ArrayList<Processos> fila1){
         Escalonadores.fila1 = fila1;
@@ -82,14 +80,9 @@ public class Escalonadores {
     public static ArrayList<Processos> getFilaProntoSuspenso(){
         return fila_pronto_suspenso;
     }    
-    
-    
-    public void incrementaQuantum(int quantum) {
-        Escalonadores.quantum += quantum;
-    }
-    
+
+    //VERIFICA SE HÁ CPU VAZIA, CASO EXISTA, RETORNA A PRIMEIRA QUE ENCONTRAR
     public Cpu encontraCpuVazia(){
-        
         
         if (cpu0.estaLivre()) return cpu0;
         
@@ -105,9 +98,10 @@ public class Escalonadores {
         
     }
     
-    
+    //CHAMA OS ESCALONADORES E ATRIBUI PROCESSOS AOS CPUS
     public void escalonar(){
         
+        //PROCURA CPU VAZIA PARA TENTAR COLOCAR PROCESSO NELA
         if (encontraCpuVazia() != null){
             
             //SE FILA PRIORITÁRIA POSSUIR PROCESSO, ELA É CHAMADA PRIMEIRO EXECUTANDO POR POLITICA FCFS
@@ -135,6 +129,7 @@ public class Escalonadores {
 
             atualizaLabel();
             
+            //EXECUTA OS PROCESSOS PRESENTES EM CADA CPU
             cpu0.executaProcessoAtual();
             cpu1.executaProcessoAtual();
             cpu2.executaProcessoAtual();
@@ -142,11 +137,6 @@ public class Escalonadores {
 
             atualizaLabel();
             
-            /*
-            if (encontraCpuVazia() != null && (!fila0.isEmpty() || !fila1.isEmpty() || !fila2.isEmpty() || !fila3.isEmpty())){
-                escalonar();
-            }
-            */
         }
         
     }
@@ -209,6 +199,8 @@ public class Escalonadores {
     public void FCFS(Cpu cpu){
         
         cpu.setFimProcessamento(false);
+        
+        //PEGA O PRIMEIRO PROCESSO PRESENTE NA FILA DE PRIORIDADE TEMPO REAL
         cpu.setProcessoAtual(fila0.get(0));
         fila0.remove(fila0.get(0));
         TelaPrincipal.setLblLog("• Processo com ID " + cpu.getProcessoAtual().getID() + " sendo executado no processador " + qualCpu(cpu) + " com política FCFS.");
@@ -222,6 +214,8 @@ public class Escalonadores {
             
             cpu.setFimProcessamento(false);
             
+            
+            //VERIFICA SE HÁ ALGUÉM NA FILA 1 PARA PODER COLOCÁ-LO EM EXECUÇÃO E ENTÃO REMOVE O PROCESSO DA FILA
             if (!fila1.isEmpty()){
 
                 cpu.setProcessoAtual(fila1.get(0));
@@ -230,6 +224,7 @@ public class Escalonadores {
 
             }
 
+            //VERIFICA SE HÁ ALGUÉM NA FILA 2 PARA PODER COLOCÁ-LO EM EXECUÇÃO E ENTÃO REMOVE O PROCESSO DA FILA
             else if (!fila2.isEmpty()){
 
                 cpu.setProcessoAtual(fila2.get(0));
@@ -238,6 +233,7 @@ public class Escalonadores {
 
             }
 
+            //VERIFICA SE HÁ ALGUÉM NA FILA 3 PARA PODER COLOCÁ-LO EM EXECUÇÃO E ENTÃO REMOVE O PROCESSO DA FILA
             else if (!fila3.isEmpty()){
 
                 cpu.setProcessoAtual(fila3.get(0));
@@ -247,7 +243,7 @@ public class Escalonadores {
             }
             
             TelaPrincipal.setLblLog("• Processo com ID " + cpu.getProcessoAtual().getID() + " sendo executado no processador " + qualCpu(cpu)+ " com política Feedback.");
-
+            //ZERA O TEMPO EXECUTANDO DO PROCESSO
             cpu.setTempoExecutando(0);
         }
     }
