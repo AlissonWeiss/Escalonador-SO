@@ -160,6 +160,9 @@ public class ProcessarArquivo {
                     //ADICIONA PROCESSO NO FINAL DA LISTA
                     lista.add(novo);
                     
+                    if (priority == 0 && tamanho > 512)
+                        JOptionPane.showMessageDialog(null, "MAIOR " + id);
+                    
                     //INCREMENTA O ID DO PROCESSO
                     id++;
                     
